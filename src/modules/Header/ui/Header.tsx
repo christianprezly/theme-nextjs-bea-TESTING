@@ -15,8 +15,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
-import { DleterenLogo } from '@/icons/DleterenLogo';
-import { IconClose, IconMenu } from '@/icons';
+import { DleterenLogo, IconClose, IconMenu } from '@/icons';
 import type { ThemeSettings } from '@/theme-settings';
 import type { SearchSettings } from '@/types';
 

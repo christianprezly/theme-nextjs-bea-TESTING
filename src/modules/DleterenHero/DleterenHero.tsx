@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import styles from './DleterenHero.module.scss';
 
 interface Props {
@@ -15,7 +13,8 @@ interface Props {
 
 /**
  * D'leteren hero banner — full-width image with optional intro text section.
- * Used at the top of hub homepage, about page, and hub-child pages.
+ * Uses a plain <img> tag because next.config has images.loader: 'custom'
+ * (Uploadcare CDN), and local /public assets don't need CDN transformation.
  */
 export function DleterenHero({
     imageSrc,
@@ -27,13 +26,13 @@ export function DleterenHero({
         <>
             {/* Full-width hero image */}
             <section className={styles.hero}>
-                <Image
+                {/* Plain img — local /public asset, no Uploadcare CDN needed */}
+                <img
                     src={imageSrc}
                     alt={imageAlt}
-                    fill
                     className={styles.heroImage}
-                    priority
-                    sizes="100vw"
+                    loading="eager"
+                    fetchPriority="high"
                 />
                 {title && (
                     <>

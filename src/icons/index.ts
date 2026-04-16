@@ -8,5 +8,6 @@ export {
 export * from './file-types';
 export * from './generic';
 export * from './social';
+export { DleterenLogo } from './DleterenLogo';
 
 export type { IconComponentType } from './types';

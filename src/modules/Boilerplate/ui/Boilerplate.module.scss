@@ -76,7 +76,88 @@
 .divider {
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
-    margin: $spacing-6 0 $spacing-4;
+    margin: $spacing-6 0 $spacing-5;
+}
+
+// ── Lower: À propos (left) + Contact (right) ─────────────────────────────────
+.lower {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+
+    @include tablet-up {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: $spacing-8;
+    }
+}
+
+.lowerLeft {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.lowerHeading {
+    font-size: $font-size-xs;
+    color: $dlt-white;
+    margin: 0 0 $spacing-2;
+    line-height: 1.4;
+
+    strong {
+        font-weight: $font-weight-bold;
+    }
+}
+
+.lowerText {
+    font-size: $font-size-xxs;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0 0 $spacing-1;
+    line-height: 1.5;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// ── Contact block (right-aligned on desktop) ─────────────────────────────────
+.contact {
+    font-style: normal;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    @include tablet-up {
+        text-align: right;
+    }
+}
+
+.contactHeading {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $dlt-white;
+    margin: 0 0 $spacing-2;
+    line-height: 1.4;
+}
+
+.contactLine {
+    font-size: $font-size-xxs;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.contactLink {
+    font-size: $font-size-xxs;
+    color: $dlt-cyan;
+    text-decoration: none;
+    display: block;
+    transition: color 0.15s ease;
+
+    &:hover {
+        color: lighten($dlt-cyan, 15%);
+    }
 }
 
 .copyright {

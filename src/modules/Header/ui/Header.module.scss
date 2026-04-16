@@ -1,6 +1,6 @@
-$header-height: 68px;
+$header-height: 64px;
 
-// D'leteren header is always dark navy
+// D'leteren header — always dark navy, sticky
 .container {
     display: flex;
     background: $dlt-navy;
@@ -17,100 +17,68 @@ $header-height: 68px;
     padding: $spacing-2 0;
     height: 100%;
     gap: $spacing-4;
-
-    .navigationToggle {
-        color: $dlt-white;
-        font-size: $font-size-m;
-        line-height: 1;
-        padding: $spacing-2;
-        margin-right: -1 * $spacing-2;
-
-        @include tablet-up {
-            display: none;
-        }
-    }
-
-    .navigationButton {
-        color: $dlt-white;
-        font-weight: $font-weight-bold;
-        font-size: $font-size-xs;
-        letter-spacing: 0.02em;
-        white-space: nowrap;
-
-        @include mobile-only {
-            @include text-label;
-
-            display: flex;
-            text-align: left;
-            justify-content: flex-start;
-            padding: $spacing-4 $grid-gutter-mobile;
-            color: $dlt-white;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        &:hover,
-        &:focus {
-            opacity: 0.75;
-        }
-
-        &:active {
-            border-color: transparent !important;
-        }
-    }
-
-    // Hide the default search toggle (search moves to page content in D'leteren design)
-    .searchToggle {
-        display: none !important;
-    }
-
-    .navigationToggle.hidden,
-    .searchToggle.hidden {
-        @include mobile-only {
-            display: none;
-        }
-    }
 }
 
-// Brand area: logo + separator + "Press Room"
+// ─── Brand: logo + separator + "Press Room" ─────────────────────────────────
 .brand {
     display: flex;
     align-items: center;
-    gap: $spacing-2;
+    gap: $spacing-3;
     flex-shrink: 0;
     text-decoration: none;
     color: $dlt-white;
+    line-height: 1;
 
     &:hover {
         opacity: 0.85;
     }
 }
 
+// Force block display to eliminate inline baseline gap; fixed height keeps it aligned
 .brandLogo {
-    height: 32px;
+    display: block;
+    height: 28px;
     width: auto;
 }
 
 .brandSeparator {
+    display: block;
     width: 1px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.5);
+    height: 22px;
+    background: rgba(255, 255, 255, 0.45);
     flex-shrink: 0;
+    align-self: center;
 }
 
 .brandSub {
-    font-size: $font-size-xs;
-    font-weight: $font-weight-regular;
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: $font-weight-bold;
     color: rgba(255, 255, 255, 0.9);
     white-space: nowrap;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+    line-height: 1;
 }
 
+// ─── Right side: nav links + language selector ───────────────────────────────
 .navigationWrapper {
     display: flex;
     align-items: center;
     margin-left: auto;
-    gap: $spacing-1;
+    gap: $spacing-2;
+}
+
+.navigationToggle {
+    color: $dlt-white;
+    font-size: $font-size-m;
+    line-height: 1;
+    padding: $spacing-2;
+    margin-right: -1 * $spacing-2;
+
+    @include tablet-up {
+        display: none;
+    }
 }
 
 /* Since search widget is in a portal, there is no better way of increasing the specificity other than adding global selectors */
@@ -137,7 +105,7 @@ div.mobileSearchWrapper {
     padding: 0;
     display: flex;
     align-items: center;
-    gap: $spacing-1;
+    gap: $spacing-4;    // generous spacing between the 3 nav links
 
     @include mobile-only {
         position: relative;
@@ -165,6 +133,39 @@ div.mobileSearchWrapper {
     padding: 0;
 }
 
+.navigationButton {
+    color: $dlt-white;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-xs;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    text-decoration: none;
+
+    @include mobile-only {
+        @include text-label;
+        display: flex;
+        text-align: left;
+        justify-content: flex-start;
+        padding: $spacing-4 $grid-gutter-mobile;
+        color: $dlt-white;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    &:hover,
+    &:focus {
+        opacity: 0.75;
+    }
+
+    &:active {
+        border-color: transparent !important;
+    }
+}
+
+// Hide the default search toggle (search lives in page content for D'leteren)
+.searchToggle {
+    display: none !important;
+}
+
 .backdrop {
     position: absolute;
     inset: 0;
@@ -183,63 +184,53 @@ div.mobileSearchWrapper {
     }
 }
 
+// ─── Language badge — pushed far right by margin-left ────────────────────────
 .languageWrapper {
-    margin-left: $spacing-2;
+    margin-left: $spacing-5;   // clear gap between last nav link and badge
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 
-    // Override the dropdown button inside the language wrapper to look like a badge
+    // Style the Prezly LanguagesDropdown trigger as a cyan circle
     :global(.button) {
         background: $dlt-cyan !important;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        border-radius: 50% !important;
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         color: $dlt-white !important;
-        font-weight: $font-weight-bold;
-        font-size: $font-size-xxs;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
+        font-weight: $font-weight-bold !important;
+        font-size: 0.6875rem !important;
+        letter-spacing: 0.06em !important;
+        text-transform: uppercase !important;
         padding: 0 !important;
-        border: none;
+        border: none !important;
     }
 }
 
-// Language badge — styled as a filled cyan circle with white text
+// Static badge — single-language sites
 .languageBadge {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background: $dlt-cyan;
     color: $dlt-white;
     font-weight: $font-weight-bold;
-    font-size: $font-size-xxs;
-    letter-spacing: 0.05em;
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     flex-shrink: 0;
-    cursor: pointer;
-    border: none;
-    margin-left: $spacing-2;
+    cursor: default;
+    user-select: none;
 }
 
-/* This class is added to the document body to prevent scrolling */
+/* Body overflow lock while mobile menu is open */
 .body {
     overflow: hidden;
-}
-
-// Legacy selectors kept for compat with existing code
-.newsroom {
-    display: none; // replaced by .brand
-}
-
-.title {
-    font-size: 1.75rem;
-    line-height: 2.5rem;
-    text-transform: uppercase;
-    color: inherit;
 }

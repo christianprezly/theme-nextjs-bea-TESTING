@@ -39,10 +39,9 @@
 .button {
     width: 100%;
     align-self: start;
-    // D'leteren cyan button
     background: $dlt-cyan !important;
     color: $dlt-white !important;
-    border-radius: 4px;
+    border-radius: 10px !important;
 
     &:hover {
         background: darken($dlt-cyan, 8%) !important;
@@ -65,10 +64,10 @@
 
 .disclaimerLink {
     color: $dlt-cyan;
-    text-decoration: underline;
+    text-decoration: none;
     font-weight: $font-weight-medium;
 
     &:hover {
-        opacity: 0.8;
+        text-decoration: underline;
     }
 }

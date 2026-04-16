@@ -1,6 +1,5 @@
 import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import Image from 'next/image';
 
 import { app } from '@/adapters/server';
 
@@ -39,12 +38,12 @@ export async function DleterenBreadcrumbs({ localeCode, currentLabel }: Props) {
                     {/* Site logo */}
                     {logoUrl && (
                         <a href={parentUrl ?? '/'} className={styles.logoLink}>
-                            <Image
+                            {/* Plain img — logo may be Uploadcare URL or plain URL; avoids loader requirement */}
+                            <img
                                 src={logoUrl}
                                 alt={siteName}
-                                width={120}
-                                height={40}
                                 className={styles.logo}
+                                loading="lazy"
                             />
                         </a>
                     )}

@@ -1,7 +1,8 @@
 // D'leteren footer — very bottom bar
+// Background is darker than $dlt-navy per design spec (#0c1c2d)
 .container {
-    background: $dlt-navy;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0c1c2d;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding: $spacing-3 0;
 }
 
@@ -19,10 +20,19 @@
     }
 }
 
+// Full company line container — "D'leteren Automotive SA/NV" in cyan, rest in white
 .company {
     font-size: 0.6875rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: #ffffff;
     white-space: nowrap;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+// "D'leteren Automotive SA/NV" part in brand cyan
+.companyName {
+    color: #00acfb;
 }
 
 .links {
@@ -32,9 +42,10 @@
     gap: $spacing-half $spacing-3;
 }
 
+// Footer links + bottom-line text use muted blue-gray per spec (#7a96ae)
 .link {
     font-size: 0.6875rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: #7a96ae;
     text-decoration: none;
     transition: color 0.15s ease;
     cursor: pointer;

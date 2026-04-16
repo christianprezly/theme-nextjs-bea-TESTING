@@ -1,43 +1,42 @@
 import type { SVGProps } from 'react';
 
 /**
- * D'leteren wordmark logo.
- * White "D'leteren" text with a small cyan play-triangle as the accent above the apostrophe.
- * Works on both dark (boilerplate) and image (hero) backgrounds.
+ * D'leteren wordmark logo — white bold text + cyan play-triangle accent.
+ * viewBox 160×36 keeps the SVG cap-height flush with surrounding text/elements.
+ * display:block on the SVG root removes the inline baseline gap.
  */
 export function DleterenLogo({ className, ...props }: SVGProps<SVGSVGElement>) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 160 48"
+            viewBox="0 0 160 36"
             role="img"
             aria-label="D'leteren"
             className={className}
+            style={{ display: 'block', overflow: 'visible', ...(props.style ?? {}) }}
             {...props}
         >
-            {/* Cyan play-triangle accent – sits above the apostrophe position */}
-            <polygon points="21,4 28,8.5 21,13" fill="#00affe" />
-
-            {/* D'leteren wordmark in white bold sans-serif */}
+            {/* "D" */}
             <text
                 x="0"
-                y="40"
+                y="28"
                 fontFamily="Inter, Arial, sans-serif"
-                fontWeight="700"
-                fontSize="32"
+                fontWeight="800"
+                fontSize="30"
                 fill="#ffffff"
-                letterSpacing="-0.5"
             >
                 D
             </text>
+            {/* Cyan play-triangle at the apostrophe position */}
+            <polygon points="17,2 23,6 17,10" fill="#00affe" />
+            {/* "leteren" */}
             <text
                 x="24"
-                y="40"
+                y="28"
                 fontFamily="Inter, Arial, sans-serif"
-                fontWeight="700"
-                fontSize="32"
+                fontWeight="800"
+                fontSize="30"
                 fill="#ffffff"
-                letterSpacing="-0.5"
             >
                 leteren
             </text>

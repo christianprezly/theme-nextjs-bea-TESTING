@@ -26,7 +26,7 @@ interface Props {
 export function DleterenHubTile({ newsroom, index }: Props) {
     const { display_name, url } = newsroom;
 
-    // Prefer the newsroom's own cover image; fall back to ordered placeholder
+    // Prefer the newsroom's own cover image via Uploadcare CDN
     const uploadcareImg =
         getUploadcareImage(newsroom.newsroom_logo) ??
         getUploadcareImage((newsroom as any).header_image);
@@ -42,6 +42,7 @@ export function DleterenHubTile({ newsroom, index }: Props) {
             title={display_name}
         >
             {uploadcareImg ? (
+                // Uploadcare image — use next/image with explicit Uploadcare loader
                 <Image
                     src={uploadcareImg.cdnUrl}
                     alt={display_name}
@@ -51,16 +52,13 @@ export function DleterenHubTile({ newsroom, index }: Props) {
                     loader={({ src, width }) => `${src}-/resize/${width}x/`}
                 />
             ) : (
-                <>
-                    <div className={styles.tilePlaceholder} />
-                    <Image
-                        src={placeholderSrc}
-                        alt={display_name}
-                        fill
-                        sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 200px"
-                        className={styles.tileImage}
-                    />
-                </>
+                // Local /public asset — plain <img>, no CDN loader needed
+                <img
+                    src={placeholderSrc}
+                    alt={display_name}
+                    className={styles.tileImage}
+                    loading="lazy"
+                />
             )}
             <div className={styles.tileLabel}>{display_name}</div>
         </a>
