@@ -1,9 +1,10 @@
+// D'leteren subscribe section — light blue-gray background, centered layout
 .container {
     @include container;
 
     padding-top: $spacing-8;
     padding-bottom: $spacing-8;
-    background-color: var(--prezly-background-color-secondary);
+    background-color: $dlt-subscribe-bg;
     text-align: center;
 
     @include desktop-up {
@@ -12,8 +13,9 @@
 }
 
 .title {
-    @include heading-1;
-
+    font-size: $font-size-m;
+    font-weight: $font-weight-regular;
+    color: $dlt-text-dark;
     margin-top: 0;
     margin-bottom: $spacing-5;
 }
@@ -37,6 +39,14 @@
 .button {
     width: 100%;
     align-self: start;
+    // D'leteren cyan button
+    background: $dlt-cyan !important;
+    color: $dlt-white !important;
+    border-radius: 4px;
+
+    &:hover {
+        background: darken($dlt-cyan, 8%) !important;
+    }
 }
 
 .input {
@@ -50,10 +60,15 @@
 
     margin-top: $spacing-3 + $spacing-half;
     margin-bottom: 0;
+    color: $color-base-600;
 }
 
 .disclaimerLink {
-    @include link-primary;
-
+    color: $dlt-cyan;
+    text-decoration: underline;
     font-weight: $font-weight-medium;
+
+    &:hover {
+        opacity: 0.8;
+    }
 }

@@ -1,77 +1,94 @@
+// D'leteren boilerplate section — dark navy background
 .container {
-    padding: $spacing-9 0;
-    color: var(--prezly-footer-text-color);
-    background: var(--prezly-footer-background-color);
+    padding: $spacing-8 0 $spacing-5;
+    background: $dlt-navy;
+    color: $dlt-white;
 }
 
-.columns {
-    display: block;
-
-    @include desktop-up {
-        display: flex;
-    }
-}
-
-.heading {
-    @include heading-3;
-
-    margin: $spacing-3 0;
-    color: var(--prezly-footer-text-color);
-}
-
-.aboutUs {
-    flex-grow: 2;
+.logo {
+    width: 120px;
+    height: auto;
     margin-bottom: $spacing-6;
-
-    @include desktop-up {
-        margin-bottom: 0;
-
-        + .contacts {
-            margin-left: $spacing-6;
-        }
-    }
 }
 
-.contacts {
+// 4-column link grid
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-6 $spacing-5;
+
     @include tablet-up {
-        min-width: 350px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $spacing-5;
     }
 }
 
-.about {
-    margin-bottom: $spacing-5;
+.col {
+    min-width: 0;
+}
+
+.colHeading {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $dlt-white;
+    margin: 0 0 $spacing-3;
+    line-height: 1.4;
+}
+
+.linkList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.link {
+    font-size: $font-size-xxs;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    display: block;
+    transition: color 0.15s ease;
+
+    &:hover {
+        color: $dlt-white;
+    }
+}
+
+.address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: $font-size-xxs;
+    color: rgba(255, 255, 255, 0.75);
 
     p {
-        @include text-label;
+        margin: 0;
     }
 
-    * {
-        color: inherit;
-    }
-}
-
-.contact {
-    @include text-label;
-
-    display: flex;
-    align-items: flex-start;
-    white-space: pre;
-
-    .icon {
-        margin-right: $spacing-1;
-
-        // arbitrary value to align icon to text
-        margin-top: 0.1875rem;
-        flex-shrink: 0;
+    a {
+        @extend .link;
     }
 }
 
-.socialMedia {
-    margin-bottom: $spacing-3;
+.divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin: $spacing-6 0 $spacing-4;
 }
 
-.link,
-.about a {
-    color: var(--prezly-footer-text-color);
-    text-decoration: underline;
+.copyright {
+    font-size: $font-size-xxs;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+
+    p {
+        margin: 0;
+    }
+
+    strong {
+        color: rgba(255, 255, 255, 0.85);
+    }
 }

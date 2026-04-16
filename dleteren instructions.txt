@@ -1,0 +1,104 @@
+1st page of the pdf
+
+is the prezly site homepage for this customization
+This will be a HUB type site
+
+There is a distinct header section which will be reused later
+the "d'leteren | press room" is what equates to the newsroom logo
+"accueil" "qui Somme nous" and d'leteren.be are custom links
+the round blue "FR" is a customized version of the prezly language selector
+
+the header and paragraph are customized (they do not exist in standard prezly theme) implement just as they are
+
+the row of 6 tiles are prezly HUB rooms, these will be provided by the backend as prezly hub sites have a toggle where they can display other sites, so customizing the standard way a prezly hub shows the sites grid for this is the way to go
+
+
+next comes the search, this in normal prezly themes is located as a simple icon on the top right but here it is customized as seen.
+
+next comes the standard stories grid, same as in standard themes
+
+the button below the stories grid that reads "decouvrez d'autres articles" is just a customized version of the standard "read more" button on standard prezly themes
+
+main section ends and next comes the subscription section, customized in looks
+
+top part of the boilerplate section here has a header aligned left, hardcoded and then 4 cols with col header and several links each, all hardcoded, hrefs to be determined later.
+
+bottom part of the boilerplate section has 2 cols, justified in the container. left part hard coded, right part comes from back end as the standard contact info from a site settings
+
+now comes the footer section, this is customized as standard themes end on the boilerplate.
+All this info and links are hardcoded, hrefs to determine later
+
+
+2nd pdf page
+
+this is an "about" page, it will be a simple story in the backend, the 1st header section "Qui sommes-nous" will link to this story, url to be determined later
+
+header reused same as from 1st page
+
+"Qui sommes-nous?" header and all the paragraphs below are hardcoded
+
+then come sections with headers, the number of sites is accurate, the headers are accurate and can be built as seen.
+each tile will match a specific prezly site in the same license, the 1 to 1 match to be determined later
+
+a divider and then a hardcoded paragraph
+
+subscription boilerplate and footer sections reused same as 1st page
+
+
+
+3rd page
+
+this is a HUB site main page
+header is mostly reused but with a different background image
+
+instead of showing a grid with the sites belonging to this HUB, a the dropdown as seen will be used, which upon deploying will show the site list to be picked, using the site logo besides the name would be really nice here.
+
+
+then comes the search, stories grid, read more, subcsription, boilerplate and footer,  similar to 1st page
+
+
+
+4th page
+This is a standard site's page
+the header is almost identical to 1st page but without background, reduced height.
+
+next comes a section with site logo and breadcrumbs
+
+breadcrumbs work as follows >>> Accueil{main page} › New & Used Cars{parent HUB} › Volkswagen{current page}
+
+next come hero story card identical to standard theme
+
+now a section with a header to the left and search to the right and then the standard stories grid
+
+read more button
+
+this section is a customized 1x3 grid of media galleries, 
+header first
+selector between images and videos next
+1x3 grid here, showing image galleries or VIDEO galleries depending on the selection.
+
+subcsription, boilerplate and footer idem to page1
+
+
+
+5th page
+
+the actual story pages
+
+same header logo and breadcrumbs as in page 4 
+
+header image
+publication date | categories | social buttons {ignore download & more, link and camera buttons}
+story title
+story subtitle {missing in example}
+story body
+
+media galleries section as in 4th page
+read more button {this should take you back to the parent site}
+
+this 3x1 grid is the "latest stories" functionality from prezly bea theme
+
+subscribe, boilerplate and footer, same as in all pages.
+
+
+IGNORE page 6

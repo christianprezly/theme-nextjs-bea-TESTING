@@ -1,21 +1,25 @@
-$header-height: 88px;
+$header-height: 68px;
 
+// D'leteren header is always dark navy
 .container {
     display: flex;
-    background: var(--prezly-header-background-color);
+    background: $dlt-navy;
     min-height: $header-height;
-    z-index: 3;
+    z-index: 100;
+    position: sticky;
+    top: 0;
 }
 
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: $spacing-3 0;
+    padding: $spacing-2 0;
     height: 100%;
+    gap: $spacing-4;
 
     .navigationToggle {
-        color: var(--prezly-header-link-color);
+        color: $dlt-white;
         font-size: $font-size-m;
         line-height: 1;
         padding: $spacing-2;
@@ -27,7 +31,11 @@ $header-height: 88px;
     }
 
     .navigationButton {
-        color: var(--prezly-header-link-color);
+        color: $dlt-white;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-xs;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
 
         @include mobile-only {
             @include text-label;
@@ -36,14 +44,13 @@ $header-height: 88px;
             text-align: left;
             justify-content: flex-start;
             padding: $spacing-4 $grid-gutter-mobile;
-            color: var(--prezly-header-link-color);
-            border-top: 1px solid var(--prezly-border-color);
+            color: $dlt-white;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         &:hover,
-        &:active,
         &:focus {
-            opacity: 1 !important;
+            opacity: 0.75;
         }
 
         &:active {
@@ -51,33 +58,9 @@ $header-height: 88px;
         }
     }
 
+    // Hide the default search toggle (search moves to page content in D'leteren design)
     .searchToggle {
-        color: var(--prezly-header-link-color);
-
-        @include mobile-only {
-            font-size: $font-size-m;
-            line-height: 1;
-            padding: $spacing-2;
-        }
-
-        @include tablet-up {
-            order: 10;
-        }
-
-        &:active {
-            border-color: transparent !important;
-        }
-
-        svg {
-            width: 1.125rem;
-            height: 1.125rem;
-        }
-    }
-
-    .searchToggle.close {
-        @include mobile-only {
-            margin-right: -1 * $spacing-2;
-        }
+        display: none !important;
     }
 
     .navigationToggle.hidden,
@@ -88,44 +71,46 @@ $header-height: 88px;
     }
 }
 
-.newsroom {
-    @include link-primary;
-
+// Brand area: logo + separator + "Press Room"
+.brand {
     display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: $dlt-white;
 
-    &.withoutLogo {
-        color: var(--prezly-header-link-color);
-
-        &:hover {
-            color: var(--prezly-header-link-color);
-            opacity: 0.8;
-        }
+    &:hover {
+        opacity: 0.85;
     }
 }
 
-.title {
-    font-size: 1.75rem;
-    line-height: 2.5rem;
+.brandLogo {
+    height: 32px;
+    width: auto;
+}
+
+.brandSeparator {
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
+}
+
+.brandSub {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-regular;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: inherit;
-
-    @include not-desktop {
-        font-size: 1.25rem;
-    }
-}
-
-.navigation,
-.navigationInner {
-    @include tablet-up {
-        display: flex;
-        align-items: center;
-    }
 }
 
 .navigationWrapper {
     display: flex;
     align-items: center;
     margin-left: auto;
+    gap: $spacing-1;
 }
 
 /* Since search widget is in a portal, there is no better way of increasing the specificity other than adding global selectors */
@@ -150,16 +135,22 @@ div.mobileSearchWrapper {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
 
     @include mobile-only {
         position: relative;
-        background: var(--prezly-header-background-color);
+        background: $dlt-navy;
         transform: translateY(-50%);
         opacity: 0;
         transition: transform 0.3s ease, opacity 0.3s ease;
         max-height: 100%;
-        border-bottom: 1px solid var(--prezly-border-color);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         overflow-y: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
 
         .open & {
             transform: translateY(0);
@@ -192,7 +183,63 @@ div.mobileSearchWrapper {
     }
 }
 
+.languageWrapper {
+    margin-left: $spacing-2;
+    display: flex;
+    align-items: center;
+
+    // Override the dropdown button inside the language wrapper to look like a badge
+    :global(.button) {
+        background: $dlt-cyan !important;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $dlt-white !important;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-xxs;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        padding: 0 !important;
+        border: none;
+    }
+}
+
+// Language badge — styled as a filled cyan circle with white text
+.languageBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: $dlt-cyan;
+    color: $dlt-white;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-xxs;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: none;
+    margin-left: $spacing-2;
+}
+
 /* This class is added to the document body to prevent scrolling */
 .body {
     overflow: hidden;
+}
+
+// Legacy selectors kept for compat with existing code
+.newsroom {
+    display: none; // replaced by .brand
+}
+
+.title {
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+    text-transform: uppercase;
+    color: inherit;
 }

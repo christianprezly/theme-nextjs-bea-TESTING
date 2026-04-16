@@ -1,0 +1,102 @@
+// Hero banner — full-width with background image
+.hero {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background-color: $dlt-navy;
+
+    @include tablet-up {
+        height: 420px;
+    }
+}
+
+.heroImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+// Optional dark overlay to improve text contrast on hub-child pages
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(15, 62, 95, 0.3) 0%,
+        rgba(15, 62, 95, 0.6) 100%
+    );
+}
+
+// Large title shown on hub-child pages (e.g. "New & Used Cars")
+.heroTitle {
+    position: absolute;
+    bottom: $spacing-6;
+    left: 0;
+    right: 0;
+    padding: 0 $grid-gutter-mobile;
+    color: $dlt-white;
+    font-size: 2.5rem;
+    font-weight: $font-weight-bolder;
+    line-height: 1.1;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+
+    @include tablet-up {
+        font-size: 3.5rem;
+        padding: 0 $grid-spacing-tablet;
+    }
+
+    @include desktop-up {
+        max-width: $grid-container-max-width;
+        margin: 0 auto;
+        padding: 0 $grid-spacing-desktop;
+        font-size: 4rem;
+    }
+}
+
+// ─── Intro text section (hub homepage only) ─────────────────────────────────
+.intro {
+    padding: $spacing-7 0 $spacing-6;
+    background: $color-base-white;
+}
+
+.introInner {
+    max-width: 800px;
+
+    @include desktop-up {
+        max-width: 640px;
+    }
+}
+
+.introHeading {
+    font-size: 1.75rem;
+    font-weight: $font-weight-bolder;
+    line-height: 1.2;
+    color: $dlt-text-dark;
+    margin: 0 0 $spacing-4;
+
+    @include tablet-up {
+        font-size: 2rem;
+    }
+
+    @include desktop-up {
+        font-size: 2.25rem;
+    }
+}
+
+.introBody {
+    font-size: $font-size-xs;
+    line-height: 1.7;
+    color: $color-base-700;
+
+    p {
+        margin: 0 0 $spacing-3;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

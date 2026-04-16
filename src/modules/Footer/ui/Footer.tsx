@@ -1,33 +1,48 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import type { ReactNode } from 'react';
-
-import { MadeWithPrezly } from '@/components/MadeWithPrezly';
-import { parseBoolean } from '@/utils';
 
 import styles from './Footer.module.scss';
 
+const FOOTER_LINKS = [
+    { label: "D'leteren Centers", href: 'https://www.dleteren.be/centers' },
+    { label: 'Vie Privée', href: 'https://www.dleteren.be/vie-privee' },
+    { label: 'Mentions légales', href: 'https://www.dleteren.be/mentions-legales' },
+    { label: 'The Way We Work', href: 'https://www.dleteren.be/the-way-we-work' },
+    { label: 'Alerte Intégrité | LEZ', href: 'https://www.dleteren.be/alerte-integrite' },
+] as const;
+
+const COMPANY_LINE =
+    "D'leteren Automotive SA/NV · Rue du Mail, 50 – 1050 Bruxelles – Belgique · Tel.: +32 2.536.51.11 · TVA BE 0466909993 · RPM Bruxelles";
+
 interface Props {
+    /** Cookie-consent and privacy-request links from the parent server component */
     children: ReactNode;
     isWhiteLabeled: boolean;
 }
 
-export function Footer({ children, ...props }: Props) {
-    const searchParams = useSearchParams();
-    const isPreviewMode = process.env.PREZLY_MODE === 'preview';
-
-    let { isWhiteLabeled } = props;
-    if (isPreviewMode && searchParams.has('is_white_labeled')) {
-        isWhiteLabeled = parseBoolean(searchParams.get('is_white_labeled'));
-    }
-
+export function Footer({ children }: Props) {
     return (
         <footer className={styles.container}>
             <div className="container">
                 <div className={styles.footer}>
-                    <div className={styles.links}>{children}</div>
-                    {!isWhiteLabeled && <MadeWithPrezly />}
+                    <span className={styles.company}>{COMPANY_LINE}</span>
+                    <div className={styles.links}>
+                        {/* Cookie consent + data-request links from Prezly (injected as children) */}
+                        {children}
+                        {/* Hardcoded D'leteren footer links */}
+                        {FOOTER_LINKS.map(({ label, href }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                className={styles.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {label}
+                            </a>
+                        ))}
+                    </div>
                 </div>
             </div>
         </footer>

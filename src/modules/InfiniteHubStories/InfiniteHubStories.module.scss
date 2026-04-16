@@ -1,50 +1,70 @@
+// D'leteren hub stories grid wrapper
+.wrapper {
+    padding-top: $spacing-5;
+}
+
+// ── Hub tiles grid ──────────────────────────────────────────────────────────
 .newsrooms {
     display: grid;
-    gap: $spacing-4;
+    gap: 4px;
     grid-template-columns: repeat(2, 1fr);
-
-    &.withMargin {
-        margin-bottom: $spacing-10;
-    }
-
-    &.one {
-        grid-template-columns: 1fr;
-        justify-content: center;
-    }
+    margin-bottom: $spacing-6;
 
     @include tablet-up {
-        &.one {
-            grid-template-columns: 373.33px;
-        }
-
-        &.four {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        &.five {
-            grid-template-columns: repeat(5, 1fr);
-        }
-
-        &.six {
-            grid-template-columns: repeat(6, 1fr);
-        }
+        grid-template-columns: repeat(3, 1fr);
     }
 
     @include desktop-up {
-        grid-template-columns: repeat(4, 1fr);
-
-        &.two {
-            grid-template-columns: repeat(2, 373.33px);
-            justify-content: center;
-        }
-
-        &.three {
-            grid-template-columns: repeat(3, 1fr);
-        }
+        grid-template-columns: repeat(6, 1fr);
     }
 }
 
+// ── Centered search bar ─────────────────────────────────────────────────────
+.searchRow {
+    display: flex;
+    justify-content: center;
+    padding: $spacing-5 0 $spacing-4;
+}
+
+// ── Stories section heading ─────────────────────────────────────────────────
+.storiesHeading {
+    @include heading-3;
+
+    color: $dlt-text-dark;
+    margin: 0 0 $spacing-5;
+}
+
+// ── Load more / CTA button ─────────────────────────────────────────────────
 .loadMore {
     display: flex;
-    margin: $spacing-8 auto 0;
+    justify-content: center;
+    margin-top: $spacing-7;
+}
+
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3 $spacing-7;
+    background: $dlt-cyan;
+    color: $dlt-white;
+    border: none;
+    border-radius: 100px;
+    font-size: $font-size-xxs;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+
+    &:hover,
+    &:focus {
+        background: darken($dlt-cyan, 8%);
+        opacity: 1;
+    }
+
+    &:active {
+        background: darken($dlt-cyan, 14%);
+    }
 }

@@ -7,37 +7,27 @@ import type {
     TranslatedCategory,
 } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { translations } from '@prezly/theme-kit-nextjs';
-import type { UploadedImage } from '@prezly/uploadcare';
 import { useMeasure } from '@react-hookz/web';
 import classNames from 'classnames';
-import dynamic from 'next/dynamic';
-import { useSearchParams } from 'next/navigation';
-import type { MouseEvent, ReactNode } from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
-import { FormattedMessage, useIntl } from '@/adapters/client';
-import { Button, ButtonLink } from '@/components/Button';
-import { CategoriesBar } from '@/components/CategoriesBar';
+import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
-import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
-import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
+import { DleterenLogo } from '@/icons/DleterenLogo';
+import { IconClose, IconMenu } from '@/icons';
 import type { ThemeSettings } from '@/theme-settings';
 import type { SearchSettings } from '@/types';
 
-import { Categories } from './Categories';
-import { Logo } from './Logo';
-
 import styles from './Header.module.scss';
 
-const SearchWidget = dynamic(
-    async () => {
-        const component = await import('./SearchWidget');
-        return { default: component.SearchWidget };
-    },
-    { ssr: false },
-);
+// Hardcoded D'leteren navigation links
+const DLETEREN_NAV = [
+    { label: 'Accueil', href: '/', external: false },
+    { label: 'Qui sommes-nous', href: '/qui-sommes-nous', external: false },
+    { label: "D'leteren.be", href: 'https://www.dleteren.be', external: true },
+] as const;
 
 interface Props {
     localeCode: Locale.Code;
@@ -46,7 +36,7 @@ interface Props {
     categories: Category[];
     translatedCategories: TranslatedCategory[];
     searchSettings?: SearchSettings;
-    children?: ReactNode;
+    children?: ReactNode; // language switcher
     displayedGalleries: number;
     displayedLanguages: number;
     categoriesLayout: ThemeSettings['categories_layout'];
@@ -56,42 +46,15 @@ interface Props {
     newsrooms: Newsroom[];
 }
 
-export function Header({
-    localeCode,
-    newsroom,
-    information,
-    categories,
-    translatedCategories,
-    searchSettings,
-    displayedGalleries,
-    displayedLanguages,
-    children,
-    newsrooms,
-    ...props
-}: Props) {
-    const { formatMessage } = useIntl();
+export function Header({ localeCode, displayedLanguages, children }: Props) {
     const { isMobile } = useDevice();
-    const searchParams = useSearchParams();
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isSearchOpen, setSearchOpen] = useState(false);
-    const [measurement, headerRef] = useMeasure<HTMLElement>();
-    const isSearchPage = useBroadcastedPageTypeCheck('search');
-    const isPreviewMode = process.env.PREZLY_MODE === 'preview';
-
-    const shouldShowMenu =
-        categories.length > 0 || displayedLanguages > 0 || displayedGalleries > 0;
+    const [, headerRef] = useMeasure<HTMLElement>();
 
     function alignMobileHeader() {
-        if (!isMobile) {
-            return;
-        }
-
+        if (!isMobile) return;
         const header = headerRef.current;
         const headerRect = header?.getBoundingClientRect();
-
-        // If header is not on top of the screen (e.g. a cookie banner is shown or user has scrolled down a bit),
-        // Align the header with the top of the screen
         if (headerRect && headerRect.top !== 0) {
             window.scrollBy({ top: headerRect.top });
         }
@@ -99,234 +62,80 @@ export function Header({
 
     function toggleMenu() {
         alignMobileHeader();
-
-        // Adding a timeout to update the state only after the scrolling is triggered.
         setTimeout(() => setIsMenuOpen((o) => !o));
     }
-    function closeMenu() {
-        return setIsMenuOpen(false);
-    }
 
-    function toggleSearchWidget(event: MouseEvent) {
-        event.preventDefault();
-        alignMobileHeader();
-
-        // Adding a timeout to update the state only after the scrolling is triggered.
-        setTimeout(() => setSearchOpen((o) => !o));
-    }
-    function closeSearchWidget() {
-        return setSearchOpen(false);
-    }
-
-    // Add scroll lock to the body while mobile menu is open
     useEffect(() => {
         document.body.classList.toggle(styles.body, isMenuOpen);
-
         return () => {
             document.body.classList.remove(styles.body);
         };
     }, [isMenuOpen]);
 
-    const newsroomName = information.name || newsroom.display_name;
-
-    const logo = useMemo(() => {
-        const newsroomLogoPreview = isPreviewMode && searchParams.get('main_logo');
-        if (newsroomLogoPreview) {
-            try {
-                return JSON.parse(newsroomLogoPreview) as UploadedImage;
-            } catch {
-                return null;
-            }
-        }
-
-        return newsroom.newsroom_logo;
-    }, [isPreviewMode, newsroom.newsroom_logo, searchParams]);
-
-    const logoSize = useMemo(() => {
-        const logoSizePreview = isPreviewMode && searchParams.get('logo_size');
-        return logoSizePreview || props.logoSize;
-    }, [isPreviewMode, props.logoSize, searchParams]);
-
-    const mainSiteUrl = useMemo(() => {
-        const mainSiteUrlPreview = isPreviewMode && validateUrl(searchParams.get('main_site_url'));
-
-        if (mainSiteUrlPreview) {
-            return mainSiteUrlPreview;
-        }
-
-        if (props.mainSiteUrl) {
-            return validateUrl(props.mainSiteUrl);
-        }
-
-        return null;
-    }, [isPreviewMode, props.mainSiteUrl, searchParams]);
-
-    function getMainSiteLabel() {
-        const mainSiteLabelPreview = isPreviewMode && searchParams.get('main_site_label');
-        return mainSiteLabelPreview || props.mainSiteLabel;
-    }
-
-    const categoriesLayout = useMemo(() => {
-        const categoriesLayoutPreview = isPreviewMode && searchParams.get('categories_layout');
-        if (categoriesLayoutPreview === 'dropdown' || categoriesLayoutPreview === 'bar') {
-            return categoriesLayoutPreview;
-        }
-
-        return props.categoriesLayout;
-    }, [isPreviewMode, props.categoriesLayout, searchParams]);
-
-    const isCategoriesLayoutBar = categoriesLayout === 'bar';
-    const isCategoriesLayoutDropdown = categoriesLayout === 'dropdown' || isMobile;
-    const numberOfPublicGalleries = newsroom.public_galleries_number;
-
     return (
-        <>
-            <header ref={headerRef} className={styles.container}>
-                <div className="container">
-                    <nav className={styles.header}>
-                        <Link
-                            href={{ routeName: 'index', params: { localeCode } }}
-                            className={classNames(styles.newsroom, {
-                                [styles.withoutLogo]: !logo,
+        <header ref={headerRef} className={styles.container}>
+            <div className="container">
+                <nav className={styles.header}>
+                    {/* Brand: D'leteren logo + | Press Room */}
+                    <Link
+                        href={{ routeName: 'index', params: { localeCode } }}
+                        className={styles.brand}
+                    >
+                        <DleterenLogo className={styles.brandLogo} />
+                        <span className={styles.brandSeparator} aria-hidden />
+                        <span className={styles.brandSub}>Press Room</span>
+                    </Link>
+
+                    <div className={styles.navigationWrapper}>
+                        {/* Mobile hamburger */}
+                        <Button
+                            variation="navigation"
+                            icon={isMenuOpen ? IconClose : IconMenu}
+                            className={styles.navigationToggle}
+                            onClick={toggleMenu}
+                            aria-expanded={isMenuOpen}
+                            aria-controls="dlt-menu"
+                            aria-label="Menu"
+                        />
+
+                        <div
+                            className={classNames(styles.navigation, {
+                                [styles.open]: isMenuOpen,
                             })}
                         >
-                            {!logo && <div className={styles.title}>{newsroomName}</div>}
-                            {logo && <Logo alt={newsroomName} image={logo} size={logoSize} />}
-                        </Link>
-
-                        <div className={styles.navigationWrapper}>
-                            {searchSettings && !newsroom.is_hub && (
-                                <ButtonLink
-                                    href={{
-                                        routeName: 'search',
-                                        params: { localeCode },
-                                    }}
-                                    variation="navigation"
-                                    className={classNames(styles.searchToggle, {
-                                        [styles.hidden]: isMenuOpen,
-                                        [styles.close]: isSearchOpen,
-                                    })}
-                                    icon={isSearchOpen && isMobile ? IconClose : IconSearch}
-                                    onClick={toggleSearchWidget}
-                                    aria-expanded={isSearchOpen}
-                                    title={formatMessage(translations.search.title)}
-                                    aria-label={formatMessage(translations.search.title)}
-                                />
-                            )}
-
-                            {shouldShowMenu && (
-                                <Button
-                                    variation="navigation"
-                                    icon={isMenuOpen ? IconClose : IconMenu}
-                                    className={classNames(styles.navigationToggle, {
-                                        [styles.hidden]: isSearchOpen,
-                                    })}
-                                    onClick={toggleMenu}
-                                    aria-expanded={isMenuOpen}
-                                    aria-controls="menu"
-                                    title={formatMessage(translations.misc.toggleMobileNavigation)}
-                                    aria-label={formatMessage(
-                                        translations.misc.toggleMobileNavigation,
-                                    )}
-                                />
-                            )}
-
                             <div
-                                className={classNames(styles.navigation, {
-                                    [styles.open]: isMenuOpen,
-                                })}
-                            >
-                                <div role="none" className={styles.backdrop} onClick={closeMenu} />
-                                {/** biome-ignore lint/correctness/useUniqueElementIds: <Header is rendered only once. It's safe to have static id> */}
-                                <ul id="menu" className={styles.navigationInner}>
-                                    {numberOfPublicGalleries > 0 && (
-                                        <li className={styles.navigationItem}>
-                                            <ButtonLink
-                                                href={{
-                                                    routeName: 'media',
-                                                    params: { localeCode },
-                                                }}
-                                                variation="navigation"
-                                                className={styles.navigationButton}
-                                            >
-                                                <FormattedMessage
-                                                    locale={localeCode}
-                                                    for={
-                                                        numberOfPublicGalleries === 1
-                                                            ? translations.mediaGallery
-                                                                  .titleSingular
-                                                            : translations.mediaGallery.title
-                                                    }
-                                                />
-                                            </ButtonLink>
-                                        </li>
-                                    )}
-                                    {isCategoriesLayoutDropdown && (
-                                        <Categories
-                                            categories={categories}
-                                            localeCode={localeCode}
-                                            marginTop={measurement?.height}
-                                            translatedCategories={translatedCategories}
-                                        />
-                                    )}
-                                    {mainSiteUrl && (
-                                        <li className={styles.navigationItem}>
-                                            <ButtonLink
-                                                href={mainSiteUrl.href}
-                                                variation="navigation"
-                                                icon={IconExternalLink}
-                                                iconPlacement="right"
-                                                className={styles.navigationButton}
-                                            >
-                                                {getMainSiteLabel() || humanizeUrl(mainSiteUrl)}
-                                            </ButtonLink>
-                                        </li>
-                                    )}
-                                    {children}
-                                </ul>
-                            </div>
-                            {searchSettings && (
-                                <SearchWidget
-                                    settings={searchSettings}
-                                    localeCode={localeCode}
-                                    categories={translatedCategories}
-                                    dialogClassName={styles.mobileSearchWrapper}
-                                    isOpen={isSearchOpen}
-                                    isSearchPage={isSearchPage}
-                                    onClose={closeSearchWidget}
-                                    newsrooms={newsrooms}
-                                    newsroomUuid={newsroom.uuid}
-                                />
+                                role="none"
+                                className={styles.backdrop}
+                                onClick={() => setIsMenuOpen(false)}
+                            />
+                            {/* biome-ignore lint/correctness/useUniqueElementIds: Header rendered once */}
+                            <ul id="dlt-menu" className={styles.navigationInner}>
+                                {DLETEREN_NAV.map(({ label, href, external }) => (
+                                    <li key={label} className={styles.navigationItem}>
+                                        <a
+                                            href={href}
+                                            className={styles.navigationButton}
+                                            target={external ? '_blank' : undefined}
+                                            rel={external ? 'noopener noreferrer' : undefined}
+                                        >
+                                            {label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Language selector — styled as cyan badge */}
+                        <div className={styles.languageWrapper}>
+                            {displayedLanguages > 1 ? (
+                                children
+                            ) : (
+                                <span className={styles.languageBadge}>FR</span>
                             )}
                         </div>
-                    </nav>
-                </div>
-            </header>
-            {isCategoriesLayoutBar && <CategoriesBar translatedCategories={translatedCategories} />}
-        </>
+                    </div>
+                </nav>
+            </div>
+        </header>
     );
-}
-
-function humanizeUrl(url: URL) {
-    const string = url.hostname.replace(/^www\./, '');
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function validateUrl(url: string | null) {
-    if (!url) return null;
-
-    try {
-        const normalizedUrl =
-            url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`;
-
-        const parsedUrl = new URL(normalizedUrl);
-
-        if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
-            return null;
-        }
-
-        return parsedUrl;
-    } catch {
-        return null;
-    }
 }

@@ -2,18 +2,17 @@
 
 import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
-import classNames from 'classnames';
+import { useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import { useCallback } from 'react';
 
-import { FormattedMessage, http, useLocale } from '@/adapters/client';
-import { Button } from '@/components/Button';
+import { http, useLocale } from '@/adapters/client';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
 
 import { StoriesList } from '../InfiniteStories';
 
-import { NewsroomLogo } from './NewsroomLogo';
+import { DleterenHubTile } from './DleterenHubTile';
+import { DleterenSearch } from './DleterenSearch';
 
 import styles from './InfiniteHubStories.module.scss';
 
@@ -72,44 +71,25 @@ export function InfiniteHubStories({
         { data: initialStories, total },
     );
 
-    function getColumnsClassName() {
-        if (includedNewsrooms.length === 1) {
-            return styles.one;
-        }
-
-        if (includedNewsrooms.length === 2) {
-            return styles.two;
-        }
-
-        if (includedNewsrooms.length > 9) {
-            return styles.six;
-        }
-
-        if (includedNewsrooms.length % 5 === 0) {
-            return styles.five;
-        }
-
-        if (includedNewsrooms.length % 3 === 0) {
-            return styles.three;
-        }
-
-        if (includedNewsrooms.length % 2 === 0) {
-            return styles.four;
-        }
-
-        return undefined;
-    }
-
     return (
-        <div>
-            <div
-                className={classNames(styles.newsrooms, getColumnsClassName(), {
-                    [styles.withMargin]: stories.length > 0,
-                })}
-            >
-                {includedNewsrooms.map((newsroom) => (
-                    <NewsroomLogo key={newsroom.uuid} newsroom={newsroom} />
-                ))}
+        <div className={styles.wrapper}>
+            {/* ── Hub member tiles ── */}
+            {includedNewsrooms.length > 0 && (
+                <div className={styles.newsrooms}>
+                    {includedNewsrooms.map((newsroom, index) => (
+                        <DleterenHubTile key={newsroom.uuid} newsroom={newsroom} index={index} />
+                    ))}
+                </div>
+            )}
+
+            {/* ── Centered search bar ── */}
+            <div className={styles.searchRow}>
+                <DleterenSearch />
+            </div>
+
+            {/* ── Stories grid ── */}
+            <div className="container">
+                <h2 className={styles.storiesHeading}>Derniers articles</h2>
             </div>
             <StoriesList
                 fullWidthFeaturedStory={false}
@@ -123,22 +103,21 @@ export function InfiniteHubStories({
                 stories={stories}
                 storyCardVariant={storyCardVariant}
                 withEmptyState={false}
-                withPageTitle
+                withPageTitle={false}
             />
 
+            {/* ── Load more CTA ── */}
             {!done && (
-                <Button
-                    variation="secondary"
-                    onClick={load}
-                    loading={loading}
-                    className={styles.loadMore}
-                >
-                    {loading ? (
-                        <FormattedMessage locale={locale} for={translations.misc.stateLoading} />
-                    ) : (
-                        <FormattedMessage locale={locale} for={translations.actions.loadMore} />
-                    )}
-                </Button>
+                <div className={styles.loadMore}>
+                    <button
+                        type="button"
+                        className={styles.ctaButton}
+                        onClick={load}
+                        disabled={loading}
+                    >
+                        {loading ? 'Chargement...' : "Découvrez d'autres articles"}
+                    </button>
+                </div>
             )}
         </div>
     );

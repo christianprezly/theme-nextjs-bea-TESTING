@@ -1,43 +1,49 @@
+// D'leteren footer — very bottom bar
 .container {
-    @include text-small;
-
-    padding: $spacing-5 0;
-    color: var(--prezly-footer-text-color);
-    background: var(--prezly-footer-background-color);
+    background: $dlt-navy;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: $spacing-3 0;
 }
 
 .footer {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: $spacing-2;
 
-    @include not-desktop {
-        display: block;
+    @include tablet-up {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: $spacing-1;
     }
+}
+
+.company {
+    font-size: 0.6875rem;
+    color: rgba(255, 255, 255, 0.55);
+    white-space: nowrap;
 }
 
 .links {
     display: flex;
     align-items: center;
-
-    @include not-desktop {
-        &:not(:last-child) {
-            margin-bottom: $spacing-4;
-        }
-    }
+    flex-wrap: wrap;
+    gap: $spacing-half $spacing-3;
 }
 
 .link {
-    display: block;
-    padding: 0;
-    appearance: none;
+    font-size: 0.6875rem;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: color 0.15s ease;
+    cursor: pointer;
     background: none;
     border: 0;
-    cursor: pointer;
-    color: var(--prezly-footer-text-color);
-    text-decoration: underline;
+    padding: 0;
+    appearance: none;
 
-    & + & {
-        margin-left: $spacing-3;
+    &:hover {
+        color: $dlt-white;
     }
 }

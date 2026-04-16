@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 
 import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
+import { DleterenHero } from '@/modules/DleterenHero';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
 import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from '@/utils';
 
@@ -60,6 +61,15 @@ export default async function StoriesIndexPage(props: Props) {
 
     return (
         <>
+            {/* D'leteren hero section — visible on hub homepage */}
+            {newsroom.is_hub && (
+                <DleterenHero
+                    imageSrc="/images/dleteren-hero-main.jpg"
+                    imageAlt="D'leteren Press Room – Informer avec rigueur"
+                    withIntro
+                />
+            )}
+
             {newsroom.is_hub ? (
                 <HubStories
                     layout={themeSettings.layout}
