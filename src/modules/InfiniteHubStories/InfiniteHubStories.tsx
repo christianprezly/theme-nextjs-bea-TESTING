@@ -11,6 +11,7 @@ import type { ListStory } from '@/types';
 
 import { StoriesList } from '../InfiniteStories';
 
+import { DleterenBrandDropdown } from './DleterenBrandDropdown';
 import { DleterenHubTile } from './DleterenHubTile';
 import { DleterenSearch } from './DleterenSearch';
 
@@ -19,6 +20,8 @@ import styles from './InfiniteHubStories.module.scss';
 type Props = {
     initialStories: ListStory[];
     layout: ThemeSettings['layout'];
+    /** Controls how member newsrooms are presented: 6-tile grid or brand dropdown */
+    membersDisplay: ThemeSettings['hub_members_display'];
     newsroomName: string;
     newsroomUuid: string;
     newsrooms: Newsroom[];
@@ -41,6 +44,7 @@ function fetchStories(props: { localeCode: Locale.Code; offset: number; limit: n
 export function InfiniteHubStories({
     initialStories,
     layout,
+    membersDisplay,
     newsroomName,
     newsroomUuid,
     newsrooms,
@@ -73,13 +77,16 @@ export function InfiniteHubStories({
 
     return (
         <div className={styles.wrapper}>
-            {/* ── Hub member tiles ── */}
-            {includedNewsrooms.length > 0 && (
+            {/* ── Hub member navigation: tiles grid (Page 1) or brand dropdown (Page 3) ── */}
+            {includedNewsrooms.length > 0 && membersDisplay === 'tiles' && (
                 <div className={styles.newsrooms}>
                     {includedNewsrooms.map((newsroom, index) => (
                         <DleterenHubTile key={newsroom.uuid} newsroom={newsroom} index={index} />
                     ))}
                 </div>
+            )}
+            {includedNewsrooms.length > 0 && membersDisplay === 'dropdown' && (
+                <DleterenBrandDropdown newsrooms={includedNewsrooms} hubUuid={newsroomUuid} />
             )}
 
             {/* ── Centered search bar ── */}

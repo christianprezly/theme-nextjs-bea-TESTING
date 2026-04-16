@@ -9,6 +9,7 @@ import { InfiniteHubStories } from '../InfiniteHubStories';
 interface Props {
     layout: ThemeSettings['layout'];
     localeCode: Locale.Code;
+    membersDisplay: ThemeSettings['hub_members_display'];
     pageSize: number;
     showDate: boolean;
     showSubtitle: boolean;
@@ -18,6 +19,7 @@ interface Props {
 export async function HubStories({
     layout,
     localeCode,
+    membersDisplay,
     pageSize,
     showDate,
     showSubtitle,
@@ -36,6 +38,7 @@ export async function HubStories({
         <InfiniteHubStories
             initialStories={stories}
             layout={layout}
+            membersDisplay={membersDisplay}
             newsroomName={languageSettings.company_information.name || newsroom.name}
             newsrooms={[newsroom, ...newsrooms]}
             newsroomUuid={newsroom.uuid}

@@ -15,6 +15,8 @@ interface Props {
     showDate: boolean;
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];
+    /** Pass false to suppress the built-in page title (e.g. when a custom heading is rendered above) */
+    withPageTitle?: boolean;
 }
 
 export async function Stories({
@@ -26,6 +28,7 @@ export async function Stories({
     showDate,
     showSubtitle,
     storyCardVariant,
+    withPageTitle = true,
 }: Props) {
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(localeCode);
@@ -53,7 +56,7 @@ export async function Stories({
             showSubtitle={showSubtitle}
             storyCardVariant={storyCardVariant}
             total={pagination.matched_records_number}
-            withPageTitle
+            withPageTitle={withPageTitle}
         />
     );
 }

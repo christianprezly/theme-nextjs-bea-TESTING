@@ -9,6 +9,7 @@ $story-container-max-width: 720px;
     }
 }
 
+// Legacy: kept for compatibility if referenced elsewhere
 .date {
     @include text-label;
 
@@ -33,4 +34,34 @@ $story-container-max-width: 720px;
     &.center {
         align-items: center;
     }
+}
+
+// D'leteren meta bar — date | categories | social share on one row
+.metaBar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    margin-top: $spacing-4;
+    margin-bottom: $spacing-5;
+    padding: $spacing-3 0;
+    border-top: 1px solid $color-base-200;
+    border-bottom: 1px solid $color-base-200;
+
+    // Inline .date override inside metaBar
+    p.date {
+        @include text-label;
+
+        color: $color-base-600;
+        margin: 0;
+        white-space: nowrap;
+        font-size: 0.8125rem;
+    }
+}
+
+.metaDivider {
+    color: $color-base-300;
+    font-size: 0.75rem;
+    user-select: none;
+    padding: 0 $spacing-1;
 }

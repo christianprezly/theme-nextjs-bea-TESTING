@@ -1,8 +1,7 @@
 import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
 import type { DocumentNode } from '@prezly/story-content-format';
-import { ImageNode, TextAlignment } from '@prezly/story-content-format';
+import { ImageNode } from '@prezly/story-content-format';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import classNames from 'classnames';
 
 import { FormattedDate } from '@/adapters/client';
 import { app } from '@/adapters/server';
@@ -14,7 +13,6 @@ import type { StoryActions, ThemeSettings } from '@/theme-settings';
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
 import { HeaderRenderer } from './HeaderRenderer';
-import { getHeaderAlignment } from './lib';
 import { RelatedStories } from './RelatedStories';
 import { Share } from './Share';
 import type { SharingOptions } from './type';
@@ -60,8 +58,6 @@ export async function Story({
         { thumbnailUrl, visibility },
     );
 
-    const headerAlignment = getHeaderAlignment(nodes);
-
     const categories = await app().translatedCategories(story.culture.code, story.categories);
 
     return (
@@ -71,28 +67,27 @@ export async function Story({
                 {withHeaderImage === 'above' && headerImageDocument && (
                     <HeaderImageRenderer nodes={headerImageDocument} />
                 )}
-                {categories.length > 0 && (
-                    <CategoriesList
-                        categories={categories}
-                        external={false}
-                        showAllCategories
-                        withBadges={withBadges}
-                    />
-                )}
-                <HeaderRenderer nodes={mainDocument} />
-                <div
-                    className={classNames(styles.linksAndDateWrapper, {
-                        [styles.left]:
-                            headerAlignment === TextAlignment.LEFT ||
-                            headerAlignment === TextAlignment.JUSTIFY,
-                        [styles.right]: headerAlignment === TextAlignment.RIGHT,
-                        [styles.center]: headerAlignment === TextAlignment.CENTER,
-                    })}
-                >
+                {/* D'leteren meta bar: date | categories | social share — all on one line */}
+                <div className={styles.metaBar}>
                     {showDate && story.published_at && (
                         <p className={styles.date}>
                             <FormattedDate value={story.published_at} />
                         </p>
+                    )}
+                    {categories.length > 0 && showDate && story.published_at && (
+                        <span className={styles.metaDivider} aria-hidden>|</span>
+                    )}
+                    {categories.length > 0 && (
+                        <CategoriesList
+                            categories={categories}
+                            external={false}
+                            showAllCategories
+                            withBadges={withBadges}
+                        />
+                    )}
+                    {((showDate && Boolean(story.published_at)) || categories.length > 0) &&
+                        sharingOptions.sharing_placement.includes('top') && (
+                        <span className={styles.metaDivider} aria-hidden>|</span>
                     )}
                     {sharingOptions.sharing_placement.includes('top') && (
                         <SocialShare
@@ -105,6 +100,7 @@ export async function Story({
                         />
                     )}
                 </div>
+                <HeaderRenderer nodes={mainDocument} />
                 <ContentRenderer story={story} nodes={mainDocument} />
             </article>
             {sharingOptions.sharing_placement.includes('bottom') && (

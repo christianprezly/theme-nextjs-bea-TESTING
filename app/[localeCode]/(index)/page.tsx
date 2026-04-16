@@ -4,7 +4,10 @@ import dynamic from 'next/dynamic';
 
 import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
+import { DleterenBreadcrumbs } from '@/modules/DleterenBreadcrumbs';
 import { DleterenHero } from '@/modules/DleterenHero';
+import { DleterenMediaSectionServer } from '@/modules/DleterenMediaSection';
+import { DleterenStoriesHeader } from '@/modules/DleterenStoriesHeader';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
 import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from '@/utils';
 
@@ -61,7 +64,7 @@ export default async function StoriesIndexPage(props: Props) {
 
     return (
         <>
-            {/* D'leteren hero section — visible on hub homepage */}
+            {/* ── Hub homepage (Page 1 / Page 3) ── */}
             {newsroom.is_hub && (
                 <DleterenHero
                     imageSrc="/images/dleteren-hero-main.jpg"
@@ -74,25 +77,41 @@ export default async function StoriesIndexPage(props: Props) {
                 <HubStories
                     layout={themeSettings.layout}
                     localeCode={params.localeCode}
+                    membersDisplay={themeSettings.hub_members_display}
                     pageSize={DEFAULT_PAGE_SIZE}
                     showDate={themeSettings.show_date}
                     showSubtitle={themeSettings.show_subtitle}
                     storyCardVariant={themeSettings.story_card_variant}
                 />
             ) : (
-                <Stories
-                    categoryId={
-                        searchParams.category ? parseNumber(searchParams.category) : undefined
-                    }
-                    fullWidthFeaturedStory={themeSettings.full_width_featured_story}
-                    layout={themeSettings.layout}
-                    localeCode={params.localeCode}
-                    pageSize={getStoryListPageSize(themeSettings.layout)}
-                    showDate={themeSettings.show_date}
-                    showSubtitle={themeSettings.show_subtitle}
-                    storyCardVariant={themeSettings.story_card_variant}
-                />
+                /* ── Standard site homepage (Page 4) ── */
+                <>
+                    {/* Breadcrumbs: Accueil › Parent Hub › Current site */}
+                    <DleterenBreadcrumbs localeCode={params.localeCode} />
+
+                    {/* Heading left + search right */}
+                    <DleterenStoriesHeader />
+
+                    {/* Stories grid */}
+                    <Stories
+                        categoryId={
+                            searchParams.category ? parseNumber(searchParams.category) : undefined
+                        }
+                        fullWidthFeaturedStory={themeSettings.full_width_featured_story}
+                        layout={themeSettings.layout}
+                        localeCode={params.localeCode}
+                        pageSize={getStoryListPageSize(themeSettings.layout)}
+                        showDate={themeSettings.show_date}
+                        showSubtitle={themeSettings.show_subtitle}
+                        storyCardVariant={themeSettings.story_card_variant}
+                        withPageTitle={false}
+                    />
+
+                    {/* Media gallery 1×3 grid with Images/Videos toggle */}
+                    <DleterenMediaSectionServer localeCode={params.localeCode} />
+                </>
             )}
+
             <Contacts localeCode={params.localeCode} />
             {themeSettings.show_featured_categories && (
                 <FeaturedCategories

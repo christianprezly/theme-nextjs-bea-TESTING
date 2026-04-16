@@ -33,6 +33,8 @@ export interface ThemeSettings {
     background_color: string;
     categories_layout: 'dropdown' | 'bar';
     font: Font;
+    /** How the hub member sites are displayed on the hub homepage: tile grid or brand dropdown */
+    hub_members_display: 'tiles' | 'dropdown';
     footer_background_color: string;
     footer_text_color: string;
     full_width_featured_story: boolean;
@@ -68,6 +70,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     background_color: '#ffffff',
     categories_layout: 'dropdown',
     font: Font.INTER,
+    hub_members_display: 'tiles',
     footer_background_color: '#111827',
     footer_text_color: '#ffffff',
     full_width_featured_story: false,

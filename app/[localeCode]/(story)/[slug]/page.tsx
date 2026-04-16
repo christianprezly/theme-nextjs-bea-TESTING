@@ -2,6 +2,8 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
+import { DleterenBreadcrumbs } from '@/modules/DleterenBreadcrumbs';
+import { DleterenMediaSectionServer } from '@/modules/DleterenMediaSection';
 import { Story } from '@/modules/Story';
 import { parsePreviewSearchParams } from '@/utils';
 
@@ -42,10 +44,20 @@ export default async function StoryPage(props: Props) {
     const { story, relatedStories } = await resolve(props.params);
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
+    const newsroom = await app().newsroom();
 
     return (
         <>
             <Broadcast story={story} />
+
+            {/* Breadcrumbs: Accueil › Parent Hub › Site › Story title — only on non-hub sites */}
+            {!newsroom.is_hub && (
+                <DleterenBreadcrumbs
+                    localeCode={localeCode}
+                    currentLabel={story.title}
+                />
+            )}
+
             <Story
                 story={story}
                 showDate={themeSettings.show_date}
@@ -64,6 +76,50 @@ export default async function StoryPage(props: Props) {
                 withBadges={themeSettings.story_card_variant === 'boxed'}
                 locale={localeCode}
             />
+
+            {/* Media gallery section — same as standard site homepage (Page 4) */}
+            {!newsroom.is_hub && (
+                <DleterenMediaSectionServer localeCode={localeCode} />
+            )}
+
+            {/* Back to parent site CTA */}
+            {!newsroom.is_hub && themeSettings.main_site_url && (
+                <DleterenBackCta
+                    href={themeSettings.main_site_url}
+                    label={themeSettings.main_site_label ?? 'Retour'}
+                />
+            )}
         </>
+    );
+}
+
+/** Simple inline "back to hub" CTA — no external file needed */
+function DleterenBackCta({ href, label }: { href: string; label: string }) {
+    return (
+        <div
+            style={{
+                textAlign: 'center',
+                padding: '2.5rem 0 3.5rem',
+                background: '#fff',
+            }}
+        >
+            <a
+                href={href}
+                style={{
+                    display: 'inline-block',
+                    padding: '0.75rem 2.5rem',
+                    borderRadius: '100px',
+                    background: '#00affe',
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: '0.875rem',
+                    textDecoration: 'none',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.04em',
+                }}
+            >
+                ← {label}
+            </a>
+        </div>
     );
 }
