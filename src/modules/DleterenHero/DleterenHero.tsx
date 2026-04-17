@@ -1,8 +1,12 @@
 import styles from './DleterenHero.module.scss';
 
 interface Props {
-    /** Background image src (from /public/images/) */
-    imageSrc: string;
+    /**
+     * Background image src (from /public/images/).
+     * When omitted the image section is not rendered — used when the image
+     * has been moved to the Header container (hub homepage).
+     */
+    imageSrc?: string;
     /** Alt text for the hero image */
     imageAlt?: string;
     /** Optional large title shown on hub-child pages (e.g. "New & Used Cars") */
@@ -12,7 +16,11 @@ interface Props {
 }
 
 /**
- * D'leteren hero banner — full-width image with optional intro text section.
+ * D'leteren hero banner — optional full-width image + optional intro text.
+ *
+ * On the hub homepage the image is rendered as the Header background so
+ * only withIntro={true} is needed here.
+ *
  * Uses a plain <img> tag because next.config has images.loader: 'custom'
  * (Uploadcare CDN), and local /public assets don't need CDN transformation.
  */
@@ -22,25 +30,28 @@ export function DleterenHero({
     title,
     withIntro = false,
 }: Props) {
+    const hasImage = !!imageSrc;
+
     return (
         <>
-            {/* Full-width hero image */}
-            <section className={styles.hero}>
-                {/* Plain img — local /public asset, no Uploadcare CDN needed */}
-                <img
-                    src={imageSrc}
-                    alt={imageAlt}
-                    className={styles.heroImage}
-                    loading="eager"
-                    fetchPriority="high"
-                />
-                {title && (
-                    <>
-                        <div className={styles.heroOverlay} aria-hidden />
-                        <div className={styles.heroTitle}>{title}</div>
-                    </>
-                )}
-            </section>
+            {/* Full-width hero image — only when imageSrc provided */}
+            {hasImage && (
+                <section className={styles.hero}>
+                    <img
+                        src={imageSrc}
+                        alt={imageAlt}
+                        className={styles.heroImage}
+                        loading="eager"
+                        fetchPriority="high"
+                    />
+                    {title && (
+                        <>
+                            <div className={styles.heroOverlay} aria-hidden />
+                            <div className={styles.heroTitle}>{title}</div>
+                        </>
+                    )}
+                </section>
+            )}
 
             {/* Intro text — hub homepage only */}
             {withIntro && (

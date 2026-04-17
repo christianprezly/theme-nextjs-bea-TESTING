@@ -64,14 +64,8 @@ export default async function StoriesIndexPage(props: Props) {
 
     return (
         <>
-            {/* ── Hub homepage (Page 1 / Page 3) ── */}
-            {newsroom.is_hub && (
-                <DleterenHero
-                    imageSrc="/images/dleteren-hero-main.jpg"
-                    imageAlt="D'leteren Press Room – Informer avec rigueur"
-                    withIntro
-                />
-            )}
+            {/* ── Hub homepage intro text (image lives in Header as background) ── */}
+            {newsroom.is_hub && <DleterenHero withIntro />}
 
             {newsroom.is_hub ? (
                 <HubStories

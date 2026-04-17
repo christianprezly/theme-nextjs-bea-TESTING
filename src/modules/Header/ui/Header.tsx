@@ -43,9 +43,11 @@ interface Props {
     mainSiteUrl: string | null;
     mainSiteLabel: string | null;
     newsrooms: Newsroom[];
+    /** Full-bleed hero background image for the hub homepage header */
+    heroImage?: string;
 }
 
-export function Header({ localeCode, displayedLanguages, children }: Props) {
+export function Header({ localeCode, displayedLanguages, heroImage, children }: Props) {
     const { isMobile } = useDevice();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [, headerRef] = useMeasure<HTMLElement>();
@@ -72,8 +74,12 @@ export function Header({ localeCode, displayedLanguages, children }: Props) {
     }, [isMenuOpen]);
 
     return (
-        <header ref={headerRef} className={styles.container}>
-            <div className="container">
+        <header
+            ref={headerRef}
+            className={classNames(styles.container, { [styles.withHero]: !!heroImage })}
+            style={heroImage ? { backgroundImage: `url(${heroImage})` } : undefined}
+        >
+            <div className={styles.headerInner}>
                 <nav className={styles.header}>
                     {/* Brand: D'leteren logo + | Press Room */}
                     <Link
@@ -124,7 +130,7 @@ export function Header({ localeCode, displayedLanguages, children }: Props) {
                             </ul>
                         </div>
 
-                        {/* Language selector — styled as cyan badge */}
+                        {/* Language selector — Prezly dropdown when >1 locale, static badge otherwise */}
                         <div className={styles.languageWrapper}>
                             {displayedLanguages > 1 ? (
                                 children

@@ -50,8 +50,8 @@ function SearchIcon() {
             strokeWidth="1.75"
             strokeLinecap="round"
             strokeLinejoin="round"
-            width="18"
-            height="18"
+            width="22"
+            height="22"
             aria-hidden
         >
             <circle cx="8.5" cy="8.5" r="5.75" />

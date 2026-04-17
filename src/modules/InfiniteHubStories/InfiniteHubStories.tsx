@@ -55,7 +55,17 @@ export function InfiniteHubStories({
     total,
 }: Props) {
     const locale = useLocale();
-    const includedNewsrooms = newsrooms.filter(({ uuid }) => uuid !== newsroomUuid);
+    // Filter out the hub itself, then sort by brand keyword into the desired display order:
+    // new&used → business services → bikes → energy → urban mobility → innovation
+    const BRAND_ORDER = ['new', 'business', 'bik', 'energ', 'urban', 'innov'];
+    function brandSortIndex(name: string): number {
+        const lower = name.toLowerCase();
+        const idx = BRAND_ORDER.findIndex((k) => lower.includes(k));
+        return idx === -1 ? BRAND_ORDER.length : idx;
+    }
+    const includedNewsrooms = newsrooms
+        .filter(({ uuid }) => uuid !== newsroomUuid)
+        .sort((a, b) => brandSortIndex(a.display_name) - brandSortIndex(b.display_name));
 
     const {
         load,
@@ -95,7 +105,7 @@ export function InfiniteHubStories({
             </div>
 
             {/* ── Stories grid ── */}
-            <div className="container">
+            <div className={`container ${styles.storiesHeadingWrapper}`}>
                 <h2 className={styles.storiesHeading}>Derniers articles</h2>
             </div>
             <StoriesList

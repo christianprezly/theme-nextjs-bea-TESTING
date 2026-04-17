@@ -5,7 +5,6 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { Dropdown, DropdownItem } from '@/components/Dropdown';
-import { IconGlobe } from '@/icons';
 import { analytics } from '@/utils';
 
 import styles from './LanguagesDropdown.module.scss';
@@ -20,11 +19,13 @@ export function LanguagesDropdown({
 
     const displayedOptions = [...options].sort((a, b) => a.title.localeCompare(b.title));
 
+    // Derive 2-letter code (e.g. "fr-BE" → "FR") for the badge label
+    const badgeLabel = selected ? selected.split('-')[0].toUpperCase() : selectedOption?.title;
+
     return (
         <li className={navigationItemClassName}>
             <Dropdown
-                icon={IconGlobe}
-                label={selectedOption?.title}
+                label={badgeLabel}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay

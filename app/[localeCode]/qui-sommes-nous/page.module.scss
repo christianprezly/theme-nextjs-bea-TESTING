@@ -124,36 +124,43 @@
 
 .sectionDivider {
     border: none;
-    border-top: 1px solid $color-base-200;
+    border-top: 1px solid #0d3b5d;
     margin-top: $spacing-6;
     margin-bottom: 0;
+}
+
+// Last brand section's divider is twice as thick
+.brandSection:last-child .sectionDivider {
+    border-top-width: 2px;
 }
 
 // Closing section
 .closing {
     margin-top: $spacing-8;
     max-width: 720px;
+    color: #536168;
+
+    p,
+    strong,
+    a {
+        font-size: $font-size-s;
+        font-weight: $font-weight-regular;
+        line-height: 0.85;
+        color: #536168;
+    }
 
     p {
-        font-size: $font-size-s;
-        line-height: 1.7;
-        color: $color-base-700;
         margin-top: 0;
         margin-bottom: $spacing-3;
 
         &:last-child {
             margin-bottom: 0;
         }
-
-        strong {
-            color: $dlt-text-dark;
-            font-weight: $font-weight-bold;
-        }
     }
 }
 
 .closingLink {
-    color: $dlt-cyan;
+    color: #536168;
     text-decoration: underline;
 
     &:hover {

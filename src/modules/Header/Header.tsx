@@ -25,6 +25,9 @@ export async function Header({ localeCode }: Props) {
 
     const memberNewsrooms = await getMemberNewsrooms(newsroom);
 
+    // Show the full-bleed hero image on the hub homepage header
+    const heroImage = newsroom.is_hub ? '/images/dleteren-hero-main.jpg' : undefined;
+
     return (
         <ui.Header
             searchSettings={searchSettings}
@@ -40,6 +43,7 @@ export async function Header({ localeCode }: Props) {
             mainSiteUrl={settings.main_site_url}
             mainSiteLabel={settings.main_site_label}
             newsrooms={[newsroom, ...memberNewsrooms]}
+            heroImage={heroImage}
         >
             <Languages localeCode={localeCode} />
         </ui.Header>

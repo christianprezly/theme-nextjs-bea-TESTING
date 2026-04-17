@@ -85,9 +85,6 @@ export function Boilerplate({ companyInformation }: Props) {
                     </div>
                 </div>
 
-                {/* ── Divider ── */}
-                <hr className={styles.divider} />
-
                 {/* ── Lower section: À propos (left) + Contact (right) ── */}
                 <div className={styles.lower}>
                     {/* Left — À propos */}

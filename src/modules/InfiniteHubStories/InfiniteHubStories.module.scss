@@ -8,6 +8,7 @@
     display: grid;
     gap: 4px;
     grid-template-columns: repeat(2, 1fr);
+    align-items: stretch;   // all tiles in a row grow to the same height
     margin-bottom: $spacing-6;
 
     @include tablet-up {
@@ -26,11 +27,17 @@
     padding: $spacing-5 0 $spacing-4;
 }
 
+// ── Stories section heading wrapper — zero out left padding from .container ──
+.storiesHeadingWrapper {
+    padding-left: 0 !important;
+}
+
 // ── Stories section heading ─────────────────────────────────────────────────
 .storiesHeading {
-    @include heading-3;
-
-    color: $dlt-text-dark;
+    font-size: 1.75rem;
+    font-weight: $font-weight-bolder;
+    line-height: 1.2;
+    color: #0d3b5d;
     margin: 0 0 $spacing-5;
 }
 

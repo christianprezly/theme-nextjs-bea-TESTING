@@ -64,18 +64,15 @@
 }
 
 .introInner {
-    max-width: 800px;
-
-    @include desktop-up {
-        max-width: 640px;
-    }
+    // Full width — no max-width constraint
+    width: 100%;
 }
 
 .introHeading {
     font-size: 1.75rem;
     font-weight: $font-weight-bolder;
     line-height: 1.2;
-    color: $dlt-text-dark;
+    color: #0d3b5d;
     margin: 0 0 $spacing-4;
 
     @include tablet-up {
@@ -90,7 +87,7 @@
 .introBody {
     font-size: $font-size-xs;
     line-height: 1.7;
-    color: $color-base-700;
+    color: #536168;
 
     p {
         margin: 0 0 $spacing-3;

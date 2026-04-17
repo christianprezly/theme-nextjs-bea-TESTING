@@ -1,4 +1,5 @@
 $header-height: 64px;
+$hero-header-height: 420px;
 
 // D'leteren header — always dark navy, sticky
 .container {
@@ -8,6 +9,55 @@ $header-height: 64px;
     z-index: 100;
     position: sticky;
     top: 0;
+    flex-direction: column;   // needed so the nav sits at the top when hero is tall
+    justify-content: flex-start;
+}
+
+// ── Hero variant — hub homepage: full-bleed image, non-sticky, tall ──────────
+.withHero {
+    position: relative;      // override sticky so hero scrolls with the page
+    min-height: $hero-header-height;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    // Navy overlay so nav text stays readable over any image
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            rgba($dlt-navy, 0.55) 0%,
+            rgba($dlt-navy, 0.15) 60%,
+            rgba($dlt-navy, 0.0) 100%
+        );
+        pointer-events: none;
+        z-index: 0;
+    }
+    // Push nav content above the overlay
+    > .container,
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+// Full-width inner wrapper — same horizontal gutters as .container but no max-width cap
+.headerInner {
+    width: 100%;
+    padding-left: $grid-spacing-mobile;
+    padding-right: $grid-spacing-mobile;
+
+    @include tablet-up {
+        padding-left: $grid-spacing-tablet;
+        padding-right: $grid-spacing-tablet;
+    }
+
+    @include desktop-up {
+        padding-left: $grid-spacing-desktop;
+        padding-right: $grid-spacing-desktop;
+        // explicitly NO max-width — brand left, nav right across full viewport
+    }
 }
 
 .header {
@@ -77,7 +127,7 @@ $header-height: 64px;
     margin-right: -1 * $spacing-2;
 
     @include tablet-up {
-        display: none;
+        display: none !important;
     }
 }
 

@@ -2,8 +2,8 @@
 .container {
     @include container;
 
-    padding-top: $spacing-8;
-    padding-bottom: $spacing-8;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     background-color: $dlt-subscribe-bg;
     text-align: center;
 
@@ -13,7 +13,7 @@
 }
 
 .title {
-    font-size: $font-size-m;
+    font-size: 1.7rem;
     font-weight: $font-weight-regular;
     color: $dlt-text-dark;
     margin-top: 0;
@@ -55,11 +55,16 @@
 }
 
 .disclaimer {
-    @include text-small;
-
+    // No font-size override — inherits from parent context
+    line-height: $line-height-xs;
     margin-top: $spacing-3 + $spacing-half;
     margin-bottom: 0;
     color: $color-base-600;
+
+    // h3 inside disclaimer: do not override, keep at 1.25rem
+    h3 {
+        font-size: 1.25rem;
+    }
 }
 
 .disclaimerLink {

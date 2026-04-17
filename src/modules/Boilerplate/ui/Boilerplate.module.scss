@@ -28,7 +28,7 @@
 }
 
 .colHeading {
-    font-size: $font-size-xs;
+    font-size: 1rem;
     font-weight: $font-weight-bold;
     color: $dlt-white;
     margin: 0 0 $spacing-3;
@@ -45,7 +45,7 @@
 }
 
 .link {
-    font-size: $font-size-xxs;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
     display: block;
@@ -61,7 +61,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    font-size: $font-size-xxs;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.75);
 
     p {
@@ -84,12 +84,13 @@
     display: flex;
     flex-direction: column;
     gap: $spacing-5;
+    padding-top: 0.5rem;
+    align-items: flex-end;
 
     @include tablet-up {
         flex-direction: row;
         justify-content: space-between;
-        align-items: flex-start;
-        gap: $spacing-8;
+        align-items: flex-end;
     }
 }
 
@@ -99,7 +100,7 @@
 }
 
 .lowerHeading {
-    font-size: $font-size-xs;
+    font-size: 1rem;
     color: $dlt-white;
     margin: 0 0 $spacing-2;
     line-height: 1.4;
@@ -110,7 +111,7 @@
 }
 
 .lowerText {
-    font-size: $font-size-xxs;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.65);
     margin: 0 0 $spacing-1;
     line-height: 1.5;
@@ -120,21 +121,33 @@
     }
 }
 
-// ── Contact block (right-aligned on desktop) ─────────────────────────────────
+// ── Contact block — right side, text-align left ───────────────────────────────
 .contact {
     font-style: normal;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 4px;
+    text-align: left;
 
+    // Push to the far right of the row on tablet+
     @include tablet-up {
-        text-align: right;
+        margin-left: auto;
+    }
+
+    // All anchor tags in the contact block: white + underlined
+    a {
+        color: #ffffff !important;
+        text-decoration: underline;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 }
 
 .contactHeading {
-    font-size: $font-size-xs;
+    font-size: 1rem;
     font-weight: $font-weight-bold;
     color: $dlt-white;
     margin: 0 0 $spacing-2;
@@ -142,26 +155,21 @@
 }
 
 .contactLine {
-    font-size: $font-size-xxs;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.65);
     margin: 0;
     line-height: 1.5;
 }
 
 .contactLink {
-    font-size: $font-size-xxs;
-    color: $dlt-cyan;
-    text-decoration: none;
+    font-size: 0.875rem;
+    // color and text-decoration handled by .contact a rule above
     display: block;
-    transition: color 0.15s ease;
-
-    &:hover {
-        color: lighten($dlt-cyan, 15%);
-    }
+    transition: opacity 0.15s ease;
 }
 
 .copyright {
-    font-size: $font-size-xxs;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.6);
     line-height: 1.6;
 

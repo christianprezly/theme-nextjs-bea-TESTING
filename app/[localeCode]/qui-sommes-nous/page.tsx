@@ -1,8 +1,6 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 
-import { DleterenHero } from '@/modules/DleterenHero';
-
 import styles from './page.module.scss';
 
 interface Props {
@@ -55,12 +53,6 @@ export default async function QuiSommesNousPage({ params }: Props) {
 
     return (
         <>
-            {/* Same hero as homepage */}
-            <DleterenHero
-                imageSrc="/images/dleteren-hero-main.jpg"
-                imageAlt="D'leteren – Qui sommes-nous"
-            />
-
             {/* Main content */}
             <article className={styles.content}>
                 <div className="container">
