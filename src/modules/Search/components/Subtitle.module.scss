@@ -1,3 +1,9 @@
 .subtitle {
-    min-height: $spacing-5;
+    min-height: $spacing-4;
+    margin-bottom: $spacing-4;
+
+    @include tablet-up {
+        min-height: $spacing-5;
+        margin-bottom: $spacing-6;
+    }
 }

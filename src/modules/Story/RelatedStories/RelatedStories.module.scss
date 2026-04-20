@@ -1,0 +1,34 @@
+.container {
+    margin-top: $spacing-7;
+
+    @include tablet-up {
+        margin-top: $spacing-9;
+    }
+}
+
+.title {
+    @include heading-2;
+
+    margin-top: 0;
+    margin-bottom: $spacing-5;
+
+    @include tablet-up {
+        margin-bottom: $spacing-6;
+    }
+}
+
+.stories {
+    display: grid;
+    gap: $spacing-5;
+    grid-template-columns: 1fr;
+
+    @include tablet-up {
+        gap: $spacing-6;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include desktop-up {
+        gap: $spacing-7;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

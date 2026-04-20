@@ -5,6 +5,8 @@ import { type Locale, translations } from '@prezly/theme-kit-nextjs';
 import { FormattedMessage } from '@/adapters/server';
 import { Divider } from '@/components/Divider';
 
+import styles from './RelatedStories.module.scss';
+
 interface Props {
     locale: Locale.Code;
     stories: Story[];
@@ -12,13 +14,13 @@ interface Props {
 
 export function RelatedStories({ locale, stories }: Props) {
     return (
-        <>
+        <div className={styles.container}>
             <Divider />
-            <h2>
+            <h2 className={styles.title}>
                 <FormattedMessage for={translations.homepage.latestStories} locale={locale} />
             </h2>
 
-            <div>
+            <div className={styles.stories}>
                 {stories.map((story) => (
                     <Elements.StoryBookmark
                         key={story.uuid}
@@ -34,6 +36,6 @@ export function RelatedStories({ locale, stories }: Props) {
                     />
                 ))}
             </div>
-        </>
+        </div>
     );
 }

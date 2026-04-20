@@ -9,7 +9,12 @@
 
     input {
         padding: $spacing-2 $spacing-3;
+        padding-right: $spacing-8;
         border-color: $color-base-200;
+
+        @include tablet-up {
+            padding-right: $spacing-9;
+        }
     }
 
     /* clears the 'X' from Internet Explorer */
@@ -38,4 +43,8 @@
     right: 0;
     top: 0;
     font-size: $font-size-m;
+
+    @include tablet-up {
+        padding: $spacing-2 !important;
+    }
 }

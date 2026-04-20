@@ -1,4 +1,8 @@
 .loadMore {
     display: flex;
-    margin: $spacing-8 auto 0;
+    margin: $spacing-5 auto 0;
+
+    @include desktop-up {
+        margin-top: $spacing-8;
+    }
 }

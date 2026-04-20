@@ -1,6 +1,11 @@
 .grid {
     display: grid;
     gap: $spacing-9 $spacing-6;
+    grid-template-columns: 1fr;
+
+    @include tablet-up {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     @include desktop-up {
         grid-template-columns: repeat(6, 1fr);
@@ -27,9 +32,5 @@
                 }
             }
         }
-    }
-
-    @include not-desktop {
-        grid-template-columns: 1fr;
     }
 }
