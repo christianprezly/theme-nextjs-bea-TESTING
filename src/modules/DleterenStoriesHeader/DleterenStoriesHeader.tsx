@@ -27,11 +27,7 @@ export function DleterenStoriesHeader() {
                 <div className={styles.inner}>
                     <h2 className={styles.heading}>Derniers articles</h2>
 
-                    <form
-                        className={styles.searchForm}
-                        onSubmit={handleSubmit}
-                        role="search"
-                    >
+                    <form className={styles.searchForm} onSubmit={handleSubmit} role="search">
                         <div className={styles.inputWrapper}>
                             <input
                                 type="search"

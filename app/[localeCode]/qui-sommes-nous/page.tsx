@@ -16,18 +16,33 @@ const BRAND_SECTIONS = [
     {
         heading: 'New & used cars',
         brands: [
-            'Volkswagen', 'Audi', 'SEAT', 'CUPRA', 'Škoda',
-            'Volkswagen Commercial Vehicles', 'Porsche', 'Bentley',
-            'Lamborghini', 'Bugatti', 'Rimac', 'Maserati',
-            "D'leteren Luxury Performance", 'WAY', 'Audi Approved.plus',
-            "D'leteren Mobility Company", 'Wondercar', 'WonderService',
+            'Volkswagen',
+            'Audi',
+            'SEAT',
+            'CUPRA',
+            'Škoda',
+            'Volkswagen Commercial Vehicles',
+            'Porsche',
+            'Bentley',
+            'Lamborghini',
+            'Bugatti',
+            'Rimac',
+            'Maserati',
+            "D'leteren Luxury Performance",
+            'WAY',
+            'Audi Approved.plus',
+            "D'leteren Mobility Company",
+            'Wondercar',
+            'WonderService',
         ],
     },
     {
         heading: 'Business services',
         brands: [
-            "Volkswagen D'leteren Finance", 'Joule',
-            'Mobility Solutions by D\'leteren', 'mbrella',
+            "Volkswagen D'leteren Finance",
+            'Joule',
+            "Mobility Solutions by D'leteren",
+            'mbrella',
         ],
     },
     {
@@ -62,16 +77,16 @@ export default async function QuiSommesNousPage({ params }: Props) {
                         <p className={styles.tagline}>Moving people forward</p>
                         <div className={styles.bodyText}>
                             <p>
-                                D&apos;leteren est un acteur clé dans les changements de société liés
-                                à la saine mobilité. Dans un monde en pleine mutation, nous préparons
-                                l&apos;avenir. La mobilité de demain, nous la voulons fluide et
-                                durable pour tous.
+                                D&apos;leteren est un acteur clé dans les changements de société
+                                liés à la saine mobilité. Dans un monde en pleine mutation, nous
+                                préparons l&apos;avenir. La mobilité de demain, nous la voulons
+                                fluide et durable pour tous.
                             </p>
                             <p>
                                 Depuis plus de 215 ans, D&apos;leteren, entreprise familiale et
-                                citoyenne, s&apos;investit sans cesse dans la recherche et la mise en
-                                place de solutions adaptées pour transformer la mobilité de chacun au
-                                quotidien.
+                                citoyenne, s&apos;investit sans cesse dans la recherche et la mise
+                                en place de solutions adaptées pour transformer la mobilité de
+                                chacun au quotidien.
                             </p>
                             <p>
                                 <strong>
@@ -82,8 +97,8 @@ export default async function QuiSommesNousPage({ params }: Props) {
                             <ul className={styles.pillars}>
                                 <li>
                                     New &amp; used cars : Marques de voitures neuves et
-                                    d&apos;occasion et services de vente au détail,
-                                    d&apos;entretien et de réparation
+                                    d&apos;occasion et services de vente au détail, d&apos;entretien
+                                    et de réparation
                                 </li>
                                 <li>Business services</li>
                                 <li>Bikes</li>
@@ -104,6 +119,7 @@ export default async function QuiSommesNousPage({ params }: Props) {
                             <h2 className={styles.sectionHeading}>{heading}</h2>
                             <div className={styles.brandGrid}>
                                 {brands.map((name) => (
+                                    // biome-ignore lint/a11y/useValidAnchor: hrefs TBD per design spec; placeholder anchor until product confirms destinations
                                     <a key={name} href="#" className={styles.brandTile}>
                                         <span className={styles.brandName}>{name}</span>
                                     </a>
@@ -120,8 +136,8 @@ export default async function QuiSommesNousPage({ params }: Props) {
                         </p>
                         <p>
                             Notre mission est de bâtir une famille d&apos;entreprises qui
-                            réinventent leur industrie, en recherche d&apos;excellence et
-                            d&apos;un impact significatif.
+                            réinventent leur industrie, en recherche d&apos;excellence et d&apos;un
+                            impact significatif.
                         </p>
                         <p>
                             Plus d&apos;informations au sujet du Groupe D&apos;leteren:{' '}

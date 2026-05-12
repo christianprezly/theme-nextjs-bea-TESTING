@@ -13,7 +13,7 @@
 
 .pageTitle {
     font-size: 2.25rem;
-    font-weight: $font-weight-bold;
+    font-weight: 800;
     color: $dlt-text-dark;
     margin-top: 0;
     margin-bottom: $spacing-2;
@@ -22,16 +22,6 @@
     @include tablet-up {
         font-size: 2.75rem;
     }
-}
-
-.tagline {
-    font-size: $font-size-m;
-    font-weight: $font-weight-regular;
-    color: $dlt-cyan;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-top: 0;
-    margin-bottom: $spacing-6;
 }
 
 .bodyText {
@@ -73,10 +63,9 @@
 }
 
 .sectionHeading {
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: $font-weight-bold;
-    color: $dlt-text-dark;
-    text-transform: uppercase;
+    color: #0d3b5d;
     letter-spacing: 0.06em;
     margin-top: 0;
     margin-bottom: $spacing-4;
@@ -124,7 +113,7 @@
 
 .sectionDivider {
     border: none;
-    border-top: 1px solid #0d3b5d;
+    border-top: 1px solid #dce4e7;
     margin-top: $spacing-6;
     margin-bottom: 0;
 }

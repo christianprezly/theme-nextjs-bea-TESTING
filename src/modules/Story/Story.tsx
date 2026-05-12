@@ -75,7 +75,9 @@ export async function Story({
                         </p>
                     )}
                     {categories.length > 0 && showDate && story.published_at && (
-                        <span className={styles.metaDivider} aria-hidden>|</span>
+                        <span className={styles.metaDivider} aria-hidden>
+                            |
+                        </span>
                     )}
                     {categories.length > 0 && (
                         <CategoriesList
@@ -87,8 +89,10 @@ export async function Story({
                     )}
                     {((showDate && Boolean(story.published_at)) || categories.length > 0) &&
                         sharingOptions.sharing_placement.includes('top') && (
-                        <span className={styles.metaDivider} aria-hidden>|</span>
-                    )}
+                            <span className={styles.metaDivider} aria-hidden>
+                                |
+                            </span>
+                        )}
                     {sharingOptions.sharing_placement.includes('top') && (
                         <SocialShare
                             socialNetworks={sharingSocialNetworks}

@@ -37,6 +37,7 @@ export function DleterenHero({
             {/* Full-width hero image — only when imageSrc provided */}
             {hasImage && (
                 <section className={styles.hero}>
+                    {/* biome-ignore lint/performance/noImgElement: hero is a CSS-sized full-width image with eager+high-priority hints; next/image would constrain it with width/height it doesn't need */}
                     <img
                         src={imageSrc}
                         alt={imageAlt}
@@ -64,10 +65,10 @@ export function DleterenHero({
                             <div className={styles.introBody}>
                                 <p>
                                     Parce que la mobilité est au centre du développement de notre
-                                    société, D&apos;leteren a pour mission de construire une mobilité
-                                    fluide et durable pour toutes et tous. Cette volonté se traduit
-                                    par le développement d&apos;un écosystème de produits et de
-                                    services complet, innovant et unique sur le marché.
+                                    société, D&apos;leteren a pour mission de construire une
+                                    mobilité fluide et durable pour toutes et tous. Cette volonté se
+                                    traduit par le développement d&apos;un écosystème de produits et
+                                    de services complet, innovant et unique sur le marché.
                                 </p>
                                 <p>
                                     À travers nos communiqués de presse, complets, précis et

@@ -47,7 +47,7 @@ export default async function CategoryPage(props: Props) {
                 layout={settings.layout}
                 pageSize={getStoryListPageSize(settings.layout)}
                 showDate={settings.show_date}
-                showSubtitle={settings.show_subtitle}
+                showSubtitle={false}
                 storyCardVariant={settings.story_card_variant}
                 translatedCategory={translatedCategory}
             />

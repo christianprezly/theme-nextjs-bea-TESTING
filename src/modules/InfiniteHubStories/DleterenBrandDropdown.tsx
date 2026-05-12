@@ -1,6 +1,7 @@
 'use client';
 
 import type { Newsroom } from '@prezly/sdk';
+import { useId } from 'react';
 
 import styles from './DleterenBrandDropdown.module.scss';
 
@@ -15,6 +16,10 @@ interface Props {
  * Replaces the tile grid with a styled <select> to navigate between member newsrooms.
  */
 export function DleterenBrandDropdown({ newsrooms }: Props) {
+    // React-generated, render-stable ID — keeps <label htmlFor> and <select id>
+    // in sync even when the component is rendered more than once on a page.
+    const selectId = useId();
+
     function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
         const url = e.target.value;
         if (url) {
@@ -26,12 +31,12 @@ export function DleterenBrandDropdown({ newsrooms }: Props) {
         <div className={styles.wrapper}>
             <div className="container">
                 <div className={styles.inner}>
-                    <label className={styles.label} htmlFor="dlt-brand-select">
+                    <label className={styles.label} htmlFor={selectId}>
                         Choisissez l&apos;une de nos marques
                     </label>
                     <div className={styles.selectWrapper}>
                         <select
-                            id="dlt-brand-select"
+                            id={selectId}
                             className={styles.select}
                             defaultValue=""
                             onChange={handleChange}

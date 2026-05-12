@@ -35,41 +35,94 @@ export function Boilerplate({ companyInformation }: Props) {
                         <h3 className={styles.colHeading}>Nos marques</h3>
                         <ul className={styles.linkList}>
                             {[
-                                'Volkswagen', 'Audi', 'SEAT', 'CUPRA', 'Škoda',
-                                'Volkswagen Commercial Vehicles', 'Porsche', 'Bentley',
-                                'Lamborghini', 'Bugatti', 'Rimac', 'Micro', 'Lucien',
+                                'Volkswagen',
+                                'Audi',
+                                'SEAT',
+                                'CUPRA',
+                                'Škoda',
+                                'Volkswagen Commercial Vehicles',
+                                'Porsche',
+                                'Bentley',
+                                'Lamborghini',
+                                'Bugatti',
+                                'Rimac',
+                                'Micro',
+                                'Lucien',
                             ].map((name) => (
-                                <li key={name}><a href="#" className={styles.link}>{name}</a></li>
+                                <li key={name}>
+                                    {/* biome-ignore lint/a11y/useValidAnchor: hrefs TBD per design spec; placeholder anchor until product confirms destinations */}
+                                    <a href="#" className={styles.link}>
+                                        {name}
+                                    </a>
+                                </li>
                             ))}
                         </ul>
                     </div>
 
                     {/* Col 2 — Nos services aux particuliers */}
                     <div className={styles.col}>
-                        <h3 className={styles.colHeading}>Nos services<br />aux particuliers</h3>
+                        <h3 className={styles.colHeading}>
+                            Nos services
+                            <br />
+                            aux particuliers
+                        </h3>
                         <ul className={styles.linkList}>
                             {[
-                                'Financement Classique', 'AutoCredit', 'Private Lease',
-                                'weCare', 'Assurances pour particuliers', 'weCover',
-                                'Audi Approved.plus', 'My Way', 'Wondercar', 'Poppy',
-                                'Mobvious', 'Taxi verts', 'My Way Buy', 'Poppy Lease',
+                                'Financement Classique',
+                                'AutoCredit',
+                                'Private Lease',
+                                'weCare',
+                                'Assurances pour particuliers',
+                                'weCover',
+                                'Audi Approved.plus',
+                                'My Way',
+                                'Wondercar',
+                                'Poppy',
+                                'Mobvious',
+                                'Taxi verts',
+                                'My Way Buy',
+                                'Poppy Lease',
                             ].map((name) => (
-                                <li key={name}><a href="#" className={styles.link}>{name}</a></li>
+                                <li key={name}>
+                                    {/* biome-ignore lint/a11y/useValidAnchor: hrefs TBD per design spec; placeholder anchor until product confirms destinations */}
+                                    <a href="#" className={styles.link}>
+                                        {name}
+                                    </a>
+                                </li>
                             ))}
                         </ul>
                     </div>
 
                     {/* Col 3 — Nos services aux entreprises */}
                     <div className={styles.col}>
-                        <h3 className={styles.colHeading}>Nos services<br />aux entreprises</h3>
+                        <h3 className={styles.colHeading}>
+                            Nos services
+                            <br />
+                            aux entreprises
+                        </h3>
                         <ul className={styles.linkList}>
                             {[
-                                "D'leteren Energy", "Mobility Solutions by D'leteren",
-                                'Location long terme', 'Leasing Financier', 'Renting Financier',
-                                'E-Moby', 'Lizy', 'Skipr', 'MyMove', 'Mbrella',
-                                'Ush', 'Husk', 'Mobvious Pro', 'Joule',
+                                "D'leteren Energy",
+                                "Mobility Solutions by D'leteren",
+                                'Location long terme',
+                                'Leasing Financier',
+                                'Renting Financier',
+                                'E-Moby',
+                                'Lizy',
+                                'Skipr',
+                                'MyMove',
+                                'Mbrella',
+                                'Ush',
+                                'Husk',
+                                'Mobvious Pro',
+                                'Joule',
                             ].map((name) => (
-                                <li key={name}><a href="#" className={styles.link}>{name}</a></li>
+                                <li key={name}>
+                                    {/* biome-ignore lint/a11y/useValidAnchor: hrefs TBD per design spec; placeholder anchor until product confirms destinations */}
+                                    <a href="#" className={styles.link}>
+                                        {name}
+                                    </a>
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -79,10 +132,17 @@ export function Boilerplate({ companyInformation }: Props) {
                         <h3 className={styles.colHeading}>Notre vision</h3>
                         <ul className={styles.linkList}>
                             {[
-                                'Notre vision 2025', 'Nos engagements',
-                                "À propos du groupe D'leteren", 'Chiffres & résultats',
+                                'Notre vision 2025',
+                                'Nos engagements',
+                                "À propos du groupe D'leteren",
+                                'Chiffres & résultats',
                             ].map((name) => (
-                                <li key={name}><a href="#" className={styles.link}>{name}</a></li>
+                                <li key={name}>
+                                    {/* biome-ignore lint/a11y/useValidAnchor: hrefs TBD per design spec; placeholder anchor until product confirms destinations */}
+                                    <a href="#" className={styles.link}>
+                                        {name}
+                                    </a>
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -96,10 +156,12 @@ export function Boilerplate({ companyInformation }: Props) {
                             <strong>À propos de D&apos;leteren Automotive NV/SA</strong>
                         </p>
                         <p className={styles.lowerText}>
-                            Copyright: textes et photos libres de droits pour utilisation rédactionnelle.
+                            Copyright: textes et photos libres de droits pour utilisation
+                            rédactionnelle.
                         </p>
                         <p className={styles.lowerText}>
-                            Toute autre utilisation des textes et des photos n&apos;est pas autorisée.
+                            Toute autre utilisation des textes et des photos n&apos;est pas
+                            autorisée.
                         </p>
                     </div>
 
@@ -107,13 +169,17 @@ export function Boilerplate({ companyInformation }: Props) {
                     <address className={styles.contact}>
                         <p className={styles.contactHeading}>Contact</p>
                         <p className={styles.contactLine}>
-                            {hasAddress ? companyInformation.address : 'Rue du Mail 50 · 1050 Brussels · Belgium'}
+                            {hasAddress
+                                ? companyInformation.address
+                                : 'Rue du Mail 50 · 1050 Brussels · Belgium'}
                         </p>
                         <a
                             href={`mailto:${hasEmail ? companyInformation.email : 'jean-marc.ponteville@dleteren.be'}`}
                             className={styles.contactLink}
                         >
-                            {hasEmail ? companyInformation.email : 'jean-marc.ponteville@dleteren.be'}
+                            {hasEmail
+                                ? companyInformation.email
+                                : 'jean-marc.ponteville@dleteren.be'}
                         </a>
                         <a
                             href={websiteUrl}

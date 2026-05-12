@@ -54,6 +54,12 @@ export function StoryCard({
 }: Props) {
     const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
+    // Prezly returns the literal "[Optional subtitle]" placeholder when no subtitle is set —
+    // treat that (and any empty/whitespace string) as no subtitle.
+    const hasSubtitle =
+        typeof subtitle === 'string'
+            ? subtitle.trim() !== '' && subtitle.trim() !== '[Optional subtitle]'
+            : Boolean(subtitle);
 
     const href = external
         ? external.storyUrl
@@ -104,14 +110,14 @@ export function StoryCard({
                 </div>
                 <HeadingTag
                     className={classNames(styles.title, {
-                        [styles.expanded]: !showSubtitle || !subtitle,
+                        [styles.expanded]: !showSubtitle || !hasSubtitle,
                     })}
                 >
                     <Link href={href} className={styles.titleLink}>
                         {title}
                     </Link>
                 </HeadingTag>
-                {showSubtitle && subtitle && (
+                {showSubtitle && hasSubtitle && (
                     <p className={styles.subtitle}>
                         <Link href={href} className={styles.subtitleLink}>
                             {subtitle}

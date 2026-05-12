@@ -52,10 +52,7 @@ export default async function StoryPage(props: Props) {
 
             {/* Breadcrumbs: Accueil › Parent Hub › Site › Story title — only on non-hub sites */}
             {!newsroom.is_hub && (
-                <DleterenBreadcrumbs
-                    localeCode={localeCode}
-                    currentLabel={story.title}
-                />
+                <DleterenBreadcrumbs localeCode={localeCode} currentLabel={story.title} />
             )}
 
             <Story
@@ -78,9 +75,7 @@ export default async function StoryPage(props: Props) {
             />
 
             {/* Media gallery section — same as standard site homepage (Page 4) */}
-            {!newsroom.is_hub && (
-                <DleterenMediaSectionServer localeCode={localeCode} />
-            )}
+            {!newsroom.is_hub && <DleterenMediaSectionServer localeCode={localeCode} />}
 
             {/* Back to parent site CTA */}
             {!newsroom.is_hub && themeSettings.main_site_url && (

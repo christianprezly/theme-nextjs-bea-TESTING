@@ -49,7 +49,7 @@ export default async function SearchPage(props: Props) {
                 newsroomUuid={newsroom.uuid}
                 settings={searchSettings}
                 showDate={themeSettings.show_date}
-                showSubtitle={themeSettings.show_subtitle}
+                showSubtitle={false}
                 storyCardVariant={themeSettings.story_card_variant}
             />
         </>

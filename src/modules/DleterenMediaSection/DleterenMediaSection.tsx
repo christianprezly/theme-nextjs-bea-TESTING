@@ -25,9 +25,7 @@ export function DleterenMediaSection({ galleries, localeCode, mediaPageUrl }: Pr
     const [activeType, setActiveType] = useState<GalleryType>('image');
 
     // Separate by gallery type; fall back to showing all if no typed ones exist
-    const imageGalleries = galleries.filter(
-        (g) => !g.type || g.type === 'image',
-    );
+    const imageGalleries = galleries.filter((g) => !g.type || g.type === 'image');
     const videoGalleries = galleries.filter((g) => g.type === 'video');
 
     // If no video galleries exist, hide the toggle

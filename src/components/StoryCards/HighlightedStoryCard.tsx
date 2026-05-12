@@ -36,6 +36,12 @@ export function HighlightedStoryCard({
 }: Props) {
     const locale = useLocale();
     const { categories, published_at, slug, subtitle } = story;
+    // Prezly returns the literal "[Optional subtitle]" placeholder when no subtitle is set —
+    // treat that (and any empty/whitespace string) as no subtitle.
+    const hasSubtitle =
+        typeof subtitle === 'string'
+            ? subtitle.trim() !== '' && subtitle.trim() !== '[Optional subtitle]'
+            : Boolean(subtitle);
 
     const translatedCategories = Category.translations(categories, locale);
 
@@ -82,7 +88,7 @@ export function HighlightedStoryCard({
                     )}
                     <h2
                         className={classNames(styles.title, {
-                            [styles.expanded]: !showSubtitle || !subtitle,
+                            [styles.expanded]: !showSubtitle || !hasSubtitle,
                         })}
                     >
                         <Link
@@ -93,7 +99,7 @@ export function HighlightedStoryCard({
                             <span className={styles.mask} />
                         </Link>
                     </h2>
-                    {showSubtitle && subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+                    {showSubtitle && hasSubtitle && <p className={styles.subtitle}>{subtitle}</p>}
                     {showDate && published_at && (
                         <div className={styles.date}>
                             <FormattedDate value={published_at} />

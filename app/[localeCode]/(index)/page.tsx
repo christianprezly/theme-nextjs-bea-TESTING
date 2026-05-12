@@ -74,7 +74,7 @@ export default async function StoriesIndexPage(props: Props) {
                     membersDisplay={themeSettings.hub_members_display}
                     pageSize={6}
                     showDate={themeSettings.show_date}
-                    showSubtitle={themeSettings.show_subtitle}
+                    showSubtitle={false}
                     storyCardVariant={themeSettings.story_card_variant}
                 />
             ) : (
@@ -96,7 +96,7 @@ export default async function StoriesIndexPage(props: Props) {
                         localeCode={params.localeCode}
                         pageSize={6}
                         showDate={themeSettings.show_date}
-                        showSubtitle={themeSettings.show_subtitle}
+                        showSubtitle={false}
                         storyCardVariant={themeSettings.story_card_variant}
                         withPageTitle={false}
                     />

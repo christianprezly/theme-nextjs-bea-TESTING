@@ -39,6 +39,7 @@ export async function DleterenBreadcrumbs({ localeCode, currentLabel }: Props) {
                     {logoUrl && (
                         <a href={parentUrl ?? '/'} className={styles.logoLink}>
                             {/* Plain img — logo may be Uploadcare URL or plain URL; avoids loader requirement */}
+                            {/* biome-ignore lint/performance/noImgElement: logoUrl may be an Uploadcare CDN URL whose dimensions we don't know upfront */}
                             <img
                                 src={logoUrl}
                                 alt={siteName}
