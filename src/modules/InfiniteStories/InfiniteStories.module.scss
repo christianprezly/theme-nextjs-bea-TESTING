@@ -1,4 +1,40 @@
+// ── "Load more" CTA wrapper — centers the button below the stories grid ────
 .loadMore {
     display: flex;
-    margin: $spacing-8 auto 0;
+    justify-content: center;
+    margin-top: $spacing-7;
+}
+
+// ── D'Ieteren cyan pill button ─────────────────────────────────────────────
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3 $spacing-7;
+    background: $dlt-cyan;
+    color: $dlt-white;
+    border: none;
+    border-radius: 100px;
+    font-size: $font-size-xxs;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+
+    &:hover,
+    &:focus {
+        background: darken($dlt-cyan, 8%);
+        opacity: 1;
+    }
+
+    &:active {
+        background: darken($dlt-cyan, 14%);
+    }
+
+    &:disabled {
+        cursor: wait;
+        opacity: 0.7;
+    }
 }

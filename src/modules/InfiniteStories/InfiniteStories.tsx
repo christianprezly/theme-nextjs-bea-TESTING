@@ -2,11 +2,10 @@
 
 import type { Category, Newsroom, Story } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
+import { useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import { useCallback } from 'react';
 
-import { FormattedMessage, http, useLocale } from '@/adapters/client';
-import { Button } from '@/components/Button';
+import { http, useLocale } from '@/adapters/client';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
 
@@ -107,19 +106,18 @@ export function InfiniteStories({
                 withPageTitle={withPageTitle}
             />
 
+            {/* ── D'Ieteren-style "Découvrez d'autres articles" CTA ── */}
             {!done && (
-                <Button
-                    variation="secondary"
-                    onClick={load}
-                    loading={loading}
-                    className={styles.loadMore}
-                >
-                    {loading ? (
-                        <FormattedMessage locale={locale} for={translations.misc.stateLoading} />
-                    ) : (
-                        <FormattedMessage locale={locale} for={translations.actions.loadMore} />
-                    )}
-                </Button>
+                <div className={styles.loadMore}>
+                    <button
+                        type="button"
+                        className={styles.ctaButton}
+                        onClick={load}
+                        disabled={loading}
+                    >
+                        {loading ? 'Chargement...' : "Découvrez d'autres articles"}
+                    </button>
+                </div>
             )}
         </div>
     );

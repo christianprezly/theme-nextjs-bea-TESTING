@@ -1,4 +1,4 @@
-import { DEFAULT_PAGE_SIZE, type Locale } from '@prezly/theme-kit-nextjs';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 
@@ -9,7 +9,7 @@ import { DleterenHero } from '@/modules/DleterenHero';
 import { DleterenMediaSectionServer } from '@/modules/DleterenMediaSection';
 import { DleterenStoriesHeader } from '@/modules/DleterenStoriesHeader';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
-import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from '@/utils';
+import { parseNumber, parsePreviewSearchParams } from '@/utils';
 
 interface Props {
     params: Promise<{
@@ -72,7 +72,7 @@ export default async function StoriesIndexPage(props: Props) {
                     layout={themeSettings.layout}
                     localeCode={params.localeCode}
                     membersDisplay={themeSettings.hub_members_display}
-                    pageSize={DEFAULT_PAGE_SIZE}
+                    pageSize={6}
                     showDate={themeSettings.show_date}
                     showSubtitle={themeSettings.show_subtitle}
                     storyCardVariant={themeSettings.story_card_variant}
@@ -86,7 +86,7 @@ export default async function StoriesIndexPage(props: Props) {
                     {/* Heading left + search right */}
                     <DleterenStoriesHeader />
 
-                    {/* Stories grid */}
+                    {/* Stories grid — 6 per page with "Load more" CTA */}
                     <Stories
                         categoryId={
                             searchParams.category ? parseNumber(searchParams.category) : undefined
@@ -94,7 +94,7 @@ export default async function StoriesIndexPage(props: Props) {
                         fullWidthFeaturedStory={themeSettings.full_width_featured_story}
                         layout={themeSettings.layout}
                         localeCode={params.localeCode}
-                        pageSize={getStoryListPageSize(themeSettings.layout)}
+                        pageSize={6}
                         showDate={themeSettings.show_date}
                         showSubtitle={themeSettings.show_subtitle}
                         storyCardVariant={themeSettings.story_card_variant}

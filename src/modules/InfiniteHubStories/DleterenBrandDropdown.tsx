@@ -14,9 +14,7 @@ interface Props {
  * D'leteren brand dropdown — shown on sub-hub pages (Page 3).
  * Replaces the tile grid with a styled <select> to navigate between member newsrooms.
  */
-export function DleterenBrandDropdown({ newsrooms, hubUuid }: Props) {
-    const router = useRouter();
-
+export function DleterenBrandDropdown({ newsrooms }: Props) {
     function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
         const url = e.target.value;
         if (url) {

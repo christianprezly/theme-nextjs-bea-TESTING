@@ -17,7 +17,10 @@ interface Props {
 export function Boilerplate({ companyInformation }: Props) {
     const hasEmail = Boolean(companyInformation.email);
     const hasAddress = Boolean(companyInformation.address);
-    const hasWebsite = Boolean(companyInformation.website);
+    const websiteUrl = companyInformation.website || 'https://www.dleteren.be';
+    const websiteLabel = companyInformation.website
+        ? getWebsiteHostname(companyInformation.website)
+        : 'www.dleteren.be';
 
     return (
         <section className={styles.container}>
@@ -113,12 +116,12 @@ export function Boilerplate({ companyInformation }: Props) {
                             {hasEmail ? companyInformation.email : 'jean-marc.ponteville@dleteren.be'}
                         </a>
                         <a
-                            href={hasWebsite ? companyInformation.website : 'https://www.dleteren.be'}
+                            href={websiteUrl}
                             className={styles.contactLink}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            {hasWebsite ? getWebsiteHostname(companyInformation.website) : 'www.dleteren.be'}
+                            {websiteLabel}
                         </a>
                     </address>
                 </div>
