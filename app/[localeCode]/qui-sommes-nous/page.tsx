@@ -1,5 +1,9 @@
+import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
+
+import { app } from '@/adapters/server';
+import { getUploadcareImage } from '@/utils';
 
 import styles from './page.module.scss';
 
@@ -11,60 +15,40 @@ export const metadata: Metadata = {
     title: "Qui sommes-nous ? | D'leteren Press Room",
 };
 
-// Brand sections — logo names & placeholder hrefs (1:1 match to Prezly sites TBD)
-const BRAND_SECTIONS = [
-    {
-        heading: 'New & used cars',
-        brands: [
-            'Volkswagen',
-            'Audi',
-            'SEAT',
-            'CUPRA',
-            'Škoda',
-            'Volkswagen Commercial Vehicles',
-            'Porsche',
-            'Bentley',
-            'Lamborghini',
-            'Bugatti',
-            'Rimac',
-            'Maserati',
-            "D'leteren Luxury Performance",
-            'WAY',
-            'Audi Approved.plus',
-            "D'leteren Mobility Company",
-            'Wondercar',
-            'WonderService',
-        ],
-    },
-    {
-        heading: 'Business services',
-        brands: [
-            "Volkswagen D'leteren Finance",
-            'Joule',
-            "Mobility Solutions by D'leteren",
-            'mbrella',
-        ],
-    },
-    {
-        heading: 'Bikes',
-        brands: ['Lucien'],
-    },
-    {
-        heading: 'Energy',
-        brands: ["D'leteren Energy"],
-    },
-    {
-        heading: 'Urban & Shared Mobility',
-        brands: ['Poppy', 'Taxis Verts', 'Husk'],
-    },
-    {
-        heading: 'Innovation',
-        brands: ['Poppy Autonomy', 'm-ero'],
-    },
-] as const;
+// Same brand-keyword sort used by DleterenHubTile so section order matches the homepage tiles:
+// new&used → business services → bikes → energy → urban mobility → innovation
+const BRAND_ORDER = ['new', 'business', 'bik', 'energ', 'urban', 'innov'];
+
+function brandSortIndex(name: string): number {
+    const lower = name.toLowerCase();
+    const idx = BRAND_ORDER.findIndex((k) => lower.includes(k));
+    return idx === -1 ? BRAND_ORDER.length : idx;
+}
+
+async function getMembers(hubUuid: string): Promise<Newsroom[]> {
+    const members = await app().client.newsroomHub.list(hubUuid);
+    return members.map((m) => m.newsroom);
+}
 
 export default async function QuiSommesNousPage({ params }: Props) {
     await params; // ensure params resolves
+
+    const newsroom = await app().newsroom();
+
+    // Top-level sub-hubs (the 6 brand pillars), only if the current newsroom is itself a hub.
+    const subHubs = newsroom.is_hub ? await getMembers(newsroom.uuid) : [];
+
+    // Sort sub-hubs into desired display order, then fetch each sub-hub's own members in parallel.
+    const orderedSubHubs = [...subHubs].sort(
+        (a, b) => brandSortIndex(a.display_name) - brandSortIndex(b.display_name),
+    );
+
+    const sections = await Promise.all(
+        orderedSubHubs.map(async (subHub) => ({
+            subHub,
+            sites: subHub.is_hub ? await getMembers(subHub.uuid) : [],
+        })),
+    );
 
     return (
         <>
@@ -113,17 +97,55 @@ export default async function QuiSommesNousPage({ params }: Props) {
                         </div>
                     </header>
 
-                    {/* Brand sections */}
-                    {BRAND_SECTIONS.map(({ heading, brands }) => (
-                        <section key={heading} className={styles.brandSection}>
-                            <h2 className={styles.sectionHeading}>{heading}</h2>
+                    {/* Brand sections — populated live from this hub's sub-hubs */}
+                    {sections.map(({ subHub, sites }) => (
+                        <section key={subHub.uuid} className={styles.brandSection}>
+                            <h2 className={styles.sectionHeading}>{subHub.display_name}</h2>
                             <div className={styles.brandGrid}>
-                                {brands.map((name) => (
-                                    // biome-ignore lint/a11y/useValidAnchor: hrefs TBD per design spec; placeholder anchor until product confirms destinations
-                                    <a key={name} href="#" className={styles.brandTile}>
-                                        <span className={styles.brandName}>{name}</span>
-                                    </a>
-                                ))}
+                                {sites.map((site) => {
+                                    // Server Component: build the resized Uploadcare URL via the SDK
+                                    // so it splices operations into the correct URL position, then
+                                    // render a plain <img>. (next/image and UploadcareImage both
+                                    // require a function loader, which can't cross the RSC boundary.)
+                                    const logo =
+                                        getUploadcareImage(site.square_logo)?.format('auto') ??
+                                        getUploadcareImage(site.newsroom_logo)?.format('auto');
+                                    const logoSrc = logo?.resize(400, null).cdnUrl ?? null;
+                                    const tileContent = logoSrc ? (
+                                        /* biome-ignore lint/performance/noImgElement: server component cannot pass next/image loader fn across the RSC boundary */
+                                        <img
+                                            src={logoSrc}
+                                            alt={site.display_name}
+                                            className={styles.brandLogo}
+                                            loading="lazy"
+                                        />
+                                    ) : (
+                                        <span className={styles.brandName}>
+                                            {site.display_name}
+                                        </span>
+                                    );
+
+                                    return site.url ? (
+                                        <a
+                                            key={site.uuid}
+                                            href={site.url}
+                                            className={styles.brandTile}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            title={site.display_name}
+                                        >
+                                            {tileContent}
+                                        </a>
+                                    ) : (
+                                        <div
+                                            key={site.uuid}
+                                            className={styles.brandTile}
+                                            title={site.display_name}
+                                        >
+                                            {tileContent}
+                                        </div>
+                                    );
+                                })}
                             </div>
                             <hr className={styles.sectionDivider} />
                         </section>

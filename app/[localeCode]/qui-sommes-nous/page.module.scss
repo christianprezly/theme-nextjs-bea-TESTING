@@ -74,7 +74,7 @@
 .brandGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-2;
+    gap: 1rem;
 
     @include tablet-up {
         grid-template-columns: repeat(3, 1fr);
@@ -87,21 +87,31 @@
 
 .brandTile {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid $color-base-200;
+    gap: $spacing-2;
+    border: none;
     border-radius: 4px;
     padding: $spacing-3 $spacing-2;
-    min-height: 72px;
+    min-height: 120px;
     text-align: center;
     text-decoration: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    background: $color-base-100;
+    transition: box-shadow 0.15s ease;
+    background: #ffffff;
+    box-shadow: 3px 3px 0 rgba(128, 128, 128, 0.5);
 
     &:hover {
-        border-color: $dlt-cyan;
-        box-shadow: 0 0 0 2px rgba(0, 175, 254, 0.15);
+        box-shadow: 3px 3px 0 rgba(128, 128, 128, 0.5), 0 0 0 2px rgba(0, 175, 254, 0.15);
     }
+}
+
+.brandLogo {
+    max-width: 100%;
+    max-height: 64px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
 .brandName {
