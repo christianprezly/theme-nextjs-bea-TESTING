@@ -1,2 +1,10 @@
+@import "fonts";
 @import "container";
 @import "typography";
+
+// ── D'Ieteren brand: force Mier A as the only font, regardless of Prezly
+//    theme-setting (which would otherwise inject a Google font).
+:root {
+    --prezly-font-family: #{$dlt-font-stack};
+    --prezly-font-family-secondary: #{$dlt-font-stack};
+}

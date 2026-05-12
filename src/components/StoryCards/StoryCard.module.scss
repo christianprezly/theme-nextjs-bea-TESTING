@@ -18,21 +18,37 @@
     @include text-small;
 
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: $spacing-1;
-    margin-bottom: $spacing-3;
+    gap: $spacing-2;
+    margin-bottom: $spacing-2;
     overflow: hidden;
+    color: #315875;
 
     &:empty {
         display: none;
     }
+
+    // D'Ieteren design: category links inside the meta row render with a
+    // 1px navy outline, no radius, 1px breathing room around the text, and
+    // they inherit the meta row's font-weight (no badge-style bold).
+    a {
+        display: inline-block;
+        padding: 1px;
+        border: 1px solid #315875;
+        border-radius: 0;
+        color: #315875;
+        font-weight: inherit;
+        text-decoration: none;
+    }
 }
 
+// Date sits inline at the start of the meta row, next to the category badge.
 .date {
     @include text-small;
 
-    color: var(--prezly-text-color-tertiary);
-    margin-top: $spacing-3;
+    color: #315875;
+    white-space: nowrap;
 }
 
 .imageWrapper {
@@ -62,9 +78,10 @@
 
 .title {
     margin: 0;
-    font-size: 1.625rem;
+    font-size: 1.1rem;
     line-height: 140%;
     font-weight: $font-weight-semi-bold;
+    color: #315875;
 
     @include tablet-up {
         @include ensure-max-text-height(3, 140%);
@@ -77,7 +94,7 @@
 
 .titleLink {
     text-decoration: none;
-    color: var(--prezly-text-color);
+    color: #315875;
 }
 
 .subtitle {
@@ -204,10 +221,6 @@
 
     .subtitle {
         margin-top: $spacing-half;
-    }
-
-    .date {
-        margin-top: $spacing-1;
     }
 
     @include mobile-only {

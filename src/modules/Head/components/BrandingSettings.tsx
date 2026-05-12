@@ -1,9 +1,4 @@
-import {
-    DEFAULT_THEME_SETTINGS,
-    getGoogleFontName,
-    getRelatedFont,
-    type ThemeSettings,
-} from '@/theme-settings';
+import { DEFAULT_THEME_SETTINGS, type ThemeSettings } from '@/theme-settings';
 import { withoutUndefined } from '@/utils';
 
 import { getCssVariables } from './getCssVariables';
@@ -19,31 +14,8 @@ export function BrandingSettings({ settings }: Props) {
         ...withoutUndefined(settings),
     };
 
-    const primaryGoogleFontName = getGoogleFontName(compiledSettings.font).replace(' ', '+');
-    const relatedFont = getRelatedFont(compiledSettings.font);
-
-    let families = [];
-    if (relatedFont) {
-        const relatedGoogleFontName = getGoogleFontName(relatedFont).replace(' ', '+');
-
-        families = [
-            `${primaryGoogleFontName}:wght@600`,
-            `${relatedGoogleFontName}:wght@400;500;600;700;900`,
-        ];
-    } else {
-        families = [`${primaryGoogleFontName}:wght@400;500;600;700;900`];
-    }
-
-    return (
-        <>
-            <link
-                href={`https://fonts.googleapis.com/css2?display=swap&${families
-                    .map((family) => `family=${family}`)
-                    .join('&')}`}
-                rel="stylesheet"
-            />
-
-            <InjectCssVariables variables={getCssVariables(compiledSettings)} />
-        </>
-    );
+    // D'Ieteren theme: Mier A is self-hosted via @font-face in src/styles/_fonts.scss
+    // and the --prezly-font-family CSS vars are pinned to it in styles.globals.scss,
+    // so no Google Fonts <link> needed.
+    return <InjectCssVariables variables={getCssVariables(compiledSettings)} />;
 }

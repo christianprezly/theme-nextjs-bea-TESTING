@@ -1,8 +1,5 @@
+// D'Ieteren theme: Mier A is self-hosted from /public/fonts/mier, so we no
+// longer need preconnect hints for fonts.googleapis.com / fonts.gstatic.com.
 export function Preconnect() {
-    return (
-        <>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        </>
-    );
+    return null;
 }

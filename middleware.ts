@@ -62,8 +62,11 @@ export const config = {
          * - robots.txt
          * - sitemap.xml
          * - favicon.ico
+         * - images/ (static images from /public/images)
+         * - fonts/  (self-hosted Mier A from /public/fonts) — must bypass i18n
+         *           routing or @font-face requests get intercepted and fail.
          */
-        '/((?!api|_next/static|_next/image|favicon\\.ico$|sitemap\\.xml$|robots\\.txt$|images/).*)',
+        '/((?!api|_next/static|_next/image|favicon\\.ico$|sitemap\\.xml$|robots\\.txt$|images/|fonts/|.*\\.woff2?$).*)',
     ],
 };
 

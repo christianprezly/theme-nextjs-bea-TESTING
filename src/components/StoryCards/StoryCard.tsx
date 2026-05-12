@@ -84,7 +84,14 @@ export function StoryCard({
                 />
             </Link>
             <div className={styles.content}>
+                {/* D'Ieteren layout: date + categories on a single meta row,
+                    title below, subtitle (if shown) below the title. */}
                 <div className={styles.meta}>
+                    {showDate && publishedAt && (
+                        <span className={styles.date}>
+                            <FormattedDate value={publishedAt} />
+                        </span>
+                    )}
                     {hasCategories && (
                         <CategoriesList
                             categories={translatedCategories}
@@ -110,11 +117,6 @@ export function StoryCard({
                             {subtitle}
                         </Link>
                     </p>
-                )}
-                {showDate && publishedAt && (
-                    <div className={styles.date}>
-                        <FormattedDate value={publishedAt} />
-                    </div>
                 )}
             </div>
         </div>

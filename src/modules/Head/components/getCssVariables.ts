@@ -1,25 +1,18 @@
 import tinycolor from 'tinycolor2';
 
-import { Font, FONT_FAMILY, getRelatedFont, type ThemeSettings } from '@/theme-settings';
+import { type ThemeSettings } from '@/theme-settings';
 
-function getFontFamily(font: Font): string {
-    return FONT_FAMILY[font] || FONT_FAMILY[Font.INTER];
-}
-
-function getSecondaryFontFamily(font: Font): string {
-    switch (getRelatedFont(font)) {
-        case Font.ALEGREYA_SANS:
-            return FONT_FAMILY[Font.ALEGREYA_SANS];
-        default:
-            return getFontFamily(font);
-    }
-}
+// D'Ieteren brand font stack — Mier A is self-hosted via @font-face in
+// src/styles/_fonts.scss. We hardcode it here so the Prezly theme-setting
+// for `font` (Inter / Roboto / etc.) is ignored and Mier always wins,
+// even though InjectCssVariables renders this <style> after the CSS bundle.
+const DLT_FONT_STACK =
+    "'Mier A', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
 
 export function getCssVariables(settings: ThemeSettings): Record<string, string> {
     const {
         accent_color,
         background_color,
-        font,
         footer_background_color,
         footer_text_color,
         header_background_color,
@@ -49,8 +42,8 @@ export function getCssVariables(settings: ThemeSettings): Record<string, string>
     const borderColorSecondary = tinycolor(text_color).setAlpha(0.3);
 
     return {
-        '--prezly-font-family': getFontFamily(font),
-        '--prezly-font-family-secondary': getSecondaryFontFamily(font),
+        '--prezly-font-family': DLT_FONT_STACK,
+        '--prezly-font-family-secondary': DLT_FONT_STACK,
         '--prezly-border-color': borderColor.toHex8String(),
         '--prezly-border-color-secondary': borderColorSecondary.toHex8String(),
         '--prezly-text-color': text_color,

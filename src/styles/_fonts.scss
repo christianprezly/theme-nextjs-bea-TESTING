@@ -1,0 +1,111 @@
+// ── D'Ieteren brand font: Mier A ───────────────────────────────────────────
+// Self-hosted from /public/fonts/mier/. font-display: swap so paragraph text
+// doesn't FOUT-flash on slow connections.
+//
+// Weight map:
+//   300  Light       400  Regular     600  Demi
+//   700  Bold        900  Black
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('/fonts/mier/MierA-Light.woff2') format('woff2'),
+        url('/fonts/mier/MierA-Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+    src:
+        url('/fonts/mier/MierA-LightItalic.woff2') format('woff2'),
+        url('/fonts/mier/MierA-LightItalic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('/fonts/mier/MierA-Regular.woff2') format('woff2'),
+        url('/fonts/mier/MierA-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    src:
+        url('/fonts/mier/MierA-Italic.woff2') format('woff2'),
+        url('/fonts/mier/MierA-Italic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    // No dedicated Medium — Demi (600) is the closest, falls back here.
+    src:
+        url('/fonts/mier/MierA-Demi.woff2') format('woff2'),
+        url('/fonts/mier/MierA-Demi.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('/fonts/mier/MierA-Demi.woff2') format('woff2'),
+        url('/fonts/mier/MierA-Demi.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+    src:
+        url('/fonts/mier/MierA-DemiItalic.woff2') format('woff2'),
+        url('/fonts/mier/MierA-DemiItalic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('/fonts/mier/MierA-Bold.woff2') format('woff2'),
+        url('/fonts/mier/MierA-Bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+    src:
+        url('/fonts/mier/MierA-BoldItalic.woff2') format('woff2'),
+        url('/fonts/mier/MierA-BoldItalic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Mier A';
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('/fonts/mier/MierA-Black.woff2') format('woff2'),
+        url('/fonts/mier/MierA-Black.woff') format('woff');
+}
+
+// ── Brand font stack — used by --prezly-font-family overrides below ────────
+$dlt-font-stack: 'Mier A', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
