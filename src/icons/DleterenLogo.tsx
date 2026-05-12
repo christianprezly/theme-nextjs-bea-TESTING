@@ -1,45 +1,76 @@
 import type { SVGProps } from 'react';
 
 /**
- * D'leteren wordmark logo — white bold text + cyan play-triangle accent.
- * viewBox 160×36 keeps the SVG cap-height flush with surrounding text/elements.
- * display:block on the SVG root removes the inline baseline gap.
+ * D'leteren wordmark — shared SVG geometry for both variants.
+ * viewBox 391×82. Lettering color is parameterized; the cyan play-triangle
+ * accent at the apostrophe position is always `#00AFFF`.
  */
-export function DleterenLogo({ className, ...props }: SVGProps<SVGSVGElement>) {
+function DleterenWordmark({
+    textFill,
+    className,
+    ...props
+}: SVGProps<SVGSVGElement> & { textFill: string }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 160 36"
+            viewBox="0 0 391 82"
+            fill="none"
             role="img"
             aria-label="D'leteren"
             className={className}
             style={{ display: 'block', overflow: 'visible', ...(props.style ?? {}) }}
             {...props}
         >
-            {/* "D" */}
-            <text
-                x="0"
-                y="28"
-                fontFamily="Inter, Arial, sans-serif"
-                fontWeight="800"
-                fontSize="30"
-                fill="#ffffff"
-            >
-                D
-            </text>
-            {/* Cyan play-triangle at the apostrophe position */}
-            <polygon points="17,2 23,6 17,10" fill="#00affe" />
-            {/* "leteren" */}
-            <text
-                x="24"
-                y="28"
-                fontFamily="Inter, Arial, sans-serif"
-                fontWeight="800"
-                fontSize="30"
-                fill="#ffffff"
-            >
-                leteren
-            </text>
+            <path
+                d="M137.51 30.6903C123.42 30.6903 112.8 41.4103 112.8 56.2903C112.8 71.1703 123.8 81.6003 138.8 81.6003C149.02 81.6003 156.46 76.8403 160.43 67.7103L147.93 64.3303C146.24 67.7103 143.07 69.5903 138.93 69.5903C133.37 69.5903 129.3 66.0203 128.01 60.1603H162.35V57.0903C162.35 40.7103 151.83 30.6903 137.54 30.6903H137.51ZM128.01 50.4403C129.3 44.5903 132.87 41.9103 137.83 41.9103C142.79 41.9103 146.57 44.9103 146.96 50.4403H128.01Z"
+                fill={textFill}
+            />
+            <path
+                d="M186.92 17.7003H172.04V32.1903H164.3V44.6903H172.04V80.1103H186.92V44.6903H198.04V32.1903H186.92V17.7003Z"
+                fill={textFill}
+            />
+            <path
+                d="M81.11 14.7503L87.89 23.0803V80.0803H103.57V10.6503H83.0401C82.5642 10.6486 82.0977 10.7827 81.6954 11.0369C81.2931 11.2911 80.9717 11.6549 80.7691 12.0855C80.5664 12.5161 80.4908 12.9955 80.5512 13.4676C80.6116 13.9396 80.8054 14.3846 81.11 14.7503Z"
+                fill={textFill}
+            />
+            <path
+                d="M224.54 30.6903C210.44 30.6903 199.83 41.4103 199.83 56.2903C199.83 71.1703 210.83 81.6003 225.83 81.6003C236.05 81.6003 243.49 76.8403 247.46 67.7103L234.96 64.3303C233.27 67.7103 230.09 69.5903 225.96 69.5903C220.4 69.5903 216.33 66.0203 215.04 60.1603H249.38V57.0903C249.38 40.7103 238.86 30.6903 224.57 30.6903H224.54ZM215.04 50.4403C216.33 44.5903 219.9 41.9103 224.86 41.9103C229.82 41.9103 233.6 44.9103 234 50.4403H215.04Z"
+                fill={textFill}
+            />
+            <path
+                d="M270.28 39.5203H270.08V32.1803H256.29V80.1103H271.29V59.3703C271.29 48.4503 276.29 45.5803 282.8 45.5803C283.952 45.5457 285.098 45.7464 286.17 46.1703V32.1703C285.055 31.6489 283.829 31.4119 282.6 31.4803C279.987 31.4466 277.423 32.1887 275.231 33.6127C273.04 35.0367 271.321 37.0787 270.29 39.4803"
+                fill={textFill}
+            />
+            <path
+                d="M314.14 30.6903C300.05 30.6903 289.43 41.4103 289.43 56.2903C289.43 71.1703 300.43 81.6003 315.43 81.6003C325.65 81.6003 333.1 76.8403 337.07 67.7103L324.56 64.3303C322.88 67.7103 319.7 69.5903 315.56 69.5903C310.01 69.5903 305.94 66.0203 304.65 60.1603H338.98V57.0903C338.98 40.7103 328.46 30.6903 314.17 30.6903H314.14ZM304.65 50.4403C305.94 44.5903 309.51 41.9103 314.47 41.9103C319.43 41.9103 323.2 44.9103 323.6 50.4403H304.65Z"
+                fill={textFill}
+            />
+            <path
+                d="M374.38 30.6903C367.93 30.6903 362.57 33.7703 359.89 37.7403H359.7V32.1803H345.9V80.1103H360.9V52.8203C360.9 47.1703 364.57 43.6903 369.24 43.6903C373.5 43.6903 375.98 46.3703 375.98 52.0303V80.1103H390.98V49.0203C390.98 37.3103 384.53 30.6603 374.41 30.6603"
+                fill={textFill}
+            />
+            <path
+                d="M18.44 10.6503H-3V80.1103H16.15C39.28 80.1103 57.04 71.1802 57.04 45.3802C57.04 24.6402 43.15 10.6503 18.44 10.6503ZM19.13 65.8203H12.7V25.0203H19.25C33.44 25.0203 40.88 33.0203 40.88 45.3603C40.88 57.7003 33.54 65.8003 19.15 65.8003"
+                fill={textFill}
+            />
+            <path
+                d="M73.25 8.45029C73.6365 8.6718 73.9576 8.99144 74.181 9.37686C74.4043 9.76229 74.5219 10.1998 74.5219 10.6453C74.5219 11.0907 74.4043 11.5283 74.181 11.9137C73.9576 12.2992 73.6365 12.6188 73.25 12.8403L66.25 16.9003L59.25 20.9503C58.8638 21.1732 58.4258 21.2906 57.9799 21.2906C57.534 21.2906 57.096 21.1732 56.7099 20.9502C56.3238 20.7273 56.0031 20.4066 55.7802 20.0204C55.5573 19.6342 55.44 19.1962 55.44 18.7503V2.54028C55.44 2.0944 55.5573 1.65637 55.7802 1.2702C56.0031 0.884033 56.3238 0.563329 56.7099 0.340363C57.096 0.117396 57.534 1.29663e-05 57.9799 1.074e-09C58.4258 -1.29641e-05 58.8638 0.117357 59.25 0.340302L66.25 4.4003L73.25 8.45029Z"
+                fill="#00AFFF"
+            />
         </svg>
     );
+}
+
+/**
+ * White wordmark — for use on dark backgrounds (e.g. $dlt-navy header / boilerplate).
+ */
+export function DleterenLogo(props: SVGProps<SVGSVGElement>) {
+    return <DleterenWordmark textFill="#ffffff" {...props} />;
+}
+
+/**
+ * Dark-blue wordmark — for use on light backgrounds.
+ */
+export function DleterenLogoDark(props: SVGProps<SVGSVGElement>) {
+    return <DleterenWordmark textFill="#0C3B5D" {...props} />;
 }

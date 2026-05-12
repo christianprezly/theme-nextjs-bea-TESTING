@@ -72,7 +72,7 @@ $hero-header-height: 420px;
 // ─── Brand: logo + separator + "Press Room" ─────────────────────────────────
 .brand {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: $spacing-3;
     flex-shrink: 0;
     text-decoration: none;
@@ -93,21 +93,20 @@ $hero-header-height: 420px;
 
 .brandSeparator {
     display: block;
-    width: 1px;
-    height: 22px;
-    background: rgba(255, 255, 255, 0.45);
+    width: 2px;
+    height: 28px;
+    background: #00afff;
     flex-shrink: 0;
     align-self: center;
 }
 
 .brandSub {
     display: block;
-    font-size: 0.6875rem;
+    font-size: 1.5rem;
     font-weight: $font-weight-bold;
     color: rgba(255, 255, 255, 0.9);
     white-space: nowrap;
     letter-spacing: 0.12em;
-    text-transform: uppercase;
     line-height: 1;
 }
 
