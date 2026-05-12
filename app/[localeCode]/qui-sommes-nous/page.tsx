@@ -74,8 +74,8 @@ export default async function QuiSommesNousPage({ params }: Props) {
                     {/* Heading block */}
                     <header className={styles.pageHeader}>
                         <h1 className={styles.pageTitle}>Qui sommes-nous&nbsp;?</h1>
-                        <p className={styles.tagline}>Moving people forward</p>
                         <div className={styles.bodyText}>
+                            <p>Moving people forward</p>
                             <p>
                                 D&apos;leteren est un acteur clé dans les changements de société
                                 liés à la saine mobilité. Dans un monde en pleine mutation, nous
