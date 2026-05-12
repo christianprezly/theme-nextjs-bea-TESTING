@@ -115,7 +115,7 @@ $hero-header-height: 420px;
     display: flex;
     align-items: center;
     margin-left: auto;
-    gap: $spacing-2;
+    gap: 1rem;
 }
 
 .navigationToggle {
@@ -273,6 +273,7 @@ div.mobileSearchWrapper {
     font-weight: $font-weight-bold;
     font-size: 0.6875rem;
     letter-spacing: 0.06em;
+    margin-left: 3rem;
     text-transform: uppercase;
     flex-shrink: 0;
     cursor: default;
