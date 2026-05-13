@@ -7,7 +7,6 @@
 
 // Page header block
 .pageHeader {
-    max-width: 720px;
     margin-bottom: $spacing-10;
 }
 
@@ -28,6 +27,12 @@
     font-size: $font-size-s;
     line-height: 1.7;
     color: $color-base-700;
+    margin-bottom: -3.5rem;
+
+    p,
+    ul {
+        opacity: 0.65;
+    }
 
     p {
         margin-top: 0;
@@ -53,7 +58,11 @@
         margin-bottom: $spacing-1;
         color: $color-base-700;
         font-size: $font-size-s;
-        line-height: 1.6;
+        line-height: 0.75;
+
+        &::marker {
+            color: #26bbff;
+        }
     }
 }
 
@@ -63,8 +72,8 @@
 }
 
 .sectionHeading {
-    font-size: 2rem;
-    font-weight: $font-weight-bold;
+    font-size: 2.5rem;
+    font-weight: 500;
     color: #0d3b5d;
     letter-spacing: 0.06em;
     margin-top: 0;
@@ -136,7 +145,6 @@
 // Closing section
 .closing {
     margin-top: $spacing-8;
-    max-width: 720px;
     color: #536168;
 
     p,
@@ -146,6 +154,7 @@
         font-weight: $font-weight-regular;
         line-height: 0.85;
         color: #536168;
+        opacity: 0.9;
     }
 
     p {
