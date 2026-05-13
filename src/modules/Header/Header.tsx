@@ -8,9 +8,10 @@ import * as ui from './ui';
 
 interface Props {
     localeCode: Locale.Code;
+    showHero?: boolean;
 }
 
-export async function Header({ localeCode }: Props) {
+export async function Header({ localeCode, showHero = false }: Props) {
     const newsroom = await app().newsroom();
     const displayedLanguages = await app().usedLanguages();
     const language = await app().languageOrDefault(localeCode);
@@ -25,8 +26,7 @@ export async function Header({ localeCode }: Props) {
 
     const memberNewsrooms = await getMemberNewsrooms(newsroom);
 
-    // Show the full-bleed hero image on the hub homepage header
-    const heroImage = newsroom.is_hub ? '/images/dleteren-hero-main.jpg' : undefined;
+    const heroImage = showHero && newsroom.is_hub ? '/images/dleteren-hero-main.jpg' : undefined;
 
     return (
         <ui.Header
